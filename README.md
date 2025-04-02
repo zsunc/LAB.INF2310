@@ -3,14 +3,14 @@
 ### Contenido: 
 
 - [Bandit.](bandit.md)  
-- Natas.  
+- [Natas.](natas.md)  
 - Leviathan.  
 - Kripton.  
 - Narnia.  
 - Behemont.  
 
 ### Listas y extras:
-- [listas.](Scores.md)
+- [listas.](scores.md)
 
 
 <br>`02/04 | 1.0`
