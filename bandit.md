@@ -1,10 +1,3 @@
-<style>
-body {
-    background-color: black;
-    color: white;
-}
-</style>
-
 ## Bandit
 ### ¬ Nivel 0 -> Nivel 1  
 Para ingresar al nivel 1, necesitamos la contraseña del usuario "bandit1". Para ello, nos conectaremos al servidor a través de una terminal de Linux (o de Powershell en Windows), en este caso, voy a utilizar un sistema operativo Linux con su interfaz de línea de comandos (shell).  
@@ -16,13 +9,37 @@ una vez dentro nos pedira la contraseña que es *bandit0*, si la contraseña es 
 ```
 bandit0@bandit:~$
 ```
-Con eso claro comenzamos la guia, empezamos usando un comando ***ls*** con el cual vemos que hay un archivo "readme", en el cual se encuentra la contraseña para el siguiente nivel, la cual preferentemente guardaremos en un archivo de texto.  
+Con esto empezamos usando un comando ***ls*** con el cual vemos que hay un archivo "readme", en el cual se encuentra la contraseña para el siguiente nivel, la cual preferentemente guardaremos en un archivo de texto.  
 ```
+bandit0@bandit:~$ ls
+readme
 bandit0@bandit:~$ cat readme
 "The password you are looking for is: ZjLjTmM6FvvyRnrb2rfNWOZOTa6ip5If"
 ```
 ### ¬ Nivel 1 -> Nivel 2  
-Ahora cambiaremos usuario al "bandit1" para iniciar sesion, y pondremos la contraseña que ya obtenimos.
+Ahora cambiaremos usuario al "bandit1" para iniciar sesion, y pondremos la contraseña que ya obtenimos.  
+Al iniciar la sesion primero vemos el directorio */home/* y al hacerle un ***ls*** vemos que hay un directorio *bandit1*
+que dentro tiene un texto ASCII, entonces vamos a abrirlo con el comando ***cat*** y asi obtenemos la contraseña para el siguiente nivel.  
+```
+bandit1@bandit:~$ cd /home/
+bandit1@bandit:/home$ ls
+bandit0   bandit2       bandit29      bandit7    drifter4     krypton1
+bandit1   bandit20      bandit29-git  bandit8    drifter5     krypton2
+bandit10  bandit21      bandit3       bandit9    drifter6     krypton3
+bandit11  bandit22      bandit30      drifter0   drifter7     krypton4
+bandit12  bandit23      bandit30-git  drifter1   drifter8     krypton5
+bandit13  bandit24      bandit31      drifter10  drifter9     krypton6
+bandit14  bandit25      bandit31-git  drifter12  formulaone0  krypton7
+bandit15  bandit26      bandit32      drifter13  formulaone1  ubuntu
+bandit16  bandit27      bandit33      drifter14  formulaone2
+bandit17  bandit27-git  bandit4       drifter15  formulaone3
+bandit18  bandit28      bandit5       drifter2   formulaone5
+bandit19  bandit28-git  bandit6       drifter3   formulaone6
+bandit1@bandit:/home$ cat /home/bandit1/-
+263JGJPfgU6LtdEvgfWU1XP5yac29mFx
+```
+## ¬ Nivel 2 -> Nivel 3
+
 
 123 test 
 22 tt
