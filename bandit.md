@@ -1,5 +1,5 @@
-### Bandit
-#### ¬ Nivel 0 -> Nivel 1  
+## Bandit
+### ¬ Nivel 0 -> Nivel 1  
 Para ingresar al nivel 1, necesitamos la contraseña del usuario "bandit1". Para ello, nos conectaremos al servidor a través de una terminal de Linux (o de Powershell en Windows), en este caso, voy a utilizar un sistema operativo Linux con su interfaz de línea de comandos (shell).  
 Luego, usaremos el comando ***ssh*** para conectarnos al servidor con el usuario **bandit0** en el puerto 2220, con esto establecemos una conexión remota segura con el servidor:
 ```
@@ -14,7 +14,7 @@ Con eso claro comenzamos la guia, empezamos usando un comando ***ls*** con el cu
 bandit0@bandit:~$ cat readme
 "The password you are looking for is: ZjLjTmM6FvvyRnrb2rfNWOZOTa6ip5If"
 ```
-#### ¬ Nivel 1 -> Nivel 2  
+### ¬ Nivel 1 -> Nivel 2  
 Ahora cambiaremos usuario al "bandit1" para iniciar sesion, y pondremos la contraseña que ya obtenimos.
 
 
