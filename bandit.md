@@ -2,7 +2,7 @@
 #### ¬ Nivel 0  
 Para entrar al nivel 1 necesitamos la contraseña para el usuario "bandit1" para lo cual entraremos a la pagina mediante una terminal en linux o powershell en windows, en este caso usare un S.O. linux.  
 Seguido entramos desde la terminal con el usuario "bandit0" asegurando estar en el puerto 2220.  
-<br>**PowerShell**
+<br>**bash**
 ```
 ssh bandit0@bandit.labs.overthewire.org -p 2220
 ```
