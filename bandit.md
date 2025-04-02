@@ -1,8 +1,8 @@
 ## Bandit
-###  -Nivel 0 -> Nivel 1  
+### ¬ Nivel 0 -> Nivel 1  
 > User: bandit0  
 Password: bandit0  
-SSH: bandit2@bandit.labs.overthewire.org -p 2220  
+SSH: bandit0@bandit.labs.overthewire.org -p 2220  
 
 Para ingresar nos conectaremos al servidor a través de una terminal de Linux (o de Powershell en Windows), en este caso, voy a utilizar un sistema operativo Linux con su interfaz de línea de comandos (shell).  
 Luego, usaremos el comando `ssh` para conectarnos al servidor con el usuario **bandit0** en el puerto 2220, con esto establecemos una conexión remota segura con el servidor:
@@ -21,6 +21,10 @@ bandit0@bandit:~$ cat readme
 "The password you are looking for is: ZjLjTmM6FvvyRnrb2rfNWOZOTa6ip5If"
 ```
 ### ¬ Nivel 1 -> Nivel 2  
+> User: bandit1  
+Password: ZjLjTmM6FvvyRnrb2rfNWOZOTa6ip5If  
+SSH: bandit1@bandit.labs.overthewire.org -p 2220  
+
 Ahora cambiaremos usuario al "bandit1" para iniciar sesion, y pondremos la contraseña que ya obtenimos.  
 Al iniciar la sesion primero vemos el directorio */home/* y al hacerle `ls` vemos que hay un directorio *bandit1*
 que dentro tiene un texto ASCII, entonces vamos a abrirlo con el comando `cat` y asi obtenemos la contraseña para el siguiente nivel.  
@@ -35,6 +39,10 @@ bandit1@bandit:/home$ cat /home/bandit1/-
 263JGJPfgU6LtdEvgfWU1XP5yac29mFx
 ```
 ### ¬ Nivel 2 -> Nivel 3
+> User: bandit2  
+Password: 263JGJPfgU6LtdEvgfWU1XP5yac29mFx  
+SSH: bandit2@bandit.labs.overthewire.org -p 2220  
+
 Para este nivel ingresamos con el usuario "bandit2", al ingresar y hacer `ls` vemos un archivo "spaces in this filename", en Linux si un archivo tiene espacios en su nombre, necesitamos escapar estos espacios o usar comillas.  
 Con eso obtendriamos la contraseña para el siguiente nivel.  
 ```
@@ -44,8 +52,20 @@ bandit2@bandit:~$ cat "spaces in this filename"
 MNk8KNH3Usiio41PRUEoDFPqfxLPlSmx
 ```
 ### Nivel 3 -> Nivel 4
+> User: bandit3  
+Password: MNk8KNH3Usiio41PRUEoDFPqfxLPlSmx  
+SSH: bandit3@bandit.labs.overthewire.org -p 2220  
+
+...
 
 
+
+
+
+[//]: # (> User: bandit  
+Password: M  
+SSH: bandit@bandit.labs.overthewire.org -p 2220  
+)
 
 #### Lista de codigos Nivel 0-33 
 ```
