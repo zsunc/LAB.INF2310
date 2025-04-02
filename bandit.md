@@ -1,17 +1,37 @@
 ### Bandit
-#### ¬ Nivel 0  
-Para entrar al nivel 1 necesitamos la contraseña para el usuario "bandit1" para lo cual entraremos a la pagina mediante una terminal en linux o powershell en windows, en este caso usare un S.O. linux.  
-Seguido entramos desde la terminal con el usuario "bandit0" asegurando estar en el puerto 2220.  
-<br>**bash**
+#### ¬ Nivel 0 -> Nivel 1  
+Para ingresar al nivel 1, necesitamos la contraseña del usuario "bandit1". Para ello, nos conectaremos al servidor a través de una terminal de Linux (o de Powershell en Windows), en este caso, voy a utilizar un sistema operativo Linux con su interfaz de línea de comandos (shell).  
+Luego, usaremos el comando ***ssh*** para conectarnos al servidor con el usuario **bandit0** en el puerto 2220, con esto establecemos una conexión remota segura con el servidor:
 ```
 ssh bandit0@bandit.labs.overthewire.org -p 2220
 ```
-una vez dentro nos pedira la contraseña que es bandit0, si la contraseña es correcta ya deberiamos estar como usuarios y en la terminal estaremos como:  
-
+una vez dentro nos pedira la contraseña que es *bandit0*, si la contraseña es correcta ya deberiamos estar como usuarios y en la terminal estaremos como:  
 ```
 bandit0@bandit:~$
 ```
-Con eso claro comenzamos la guia, empezamos usando un comando
+Con eso claro comenzamos la guia, empezamos usando un comando ***ls*** con el cual vemos que hay un archivo "readme", en el cual se encuentra la contraseña para el siguiente nivel, la cual preferentemente guardaremos en un archivo de texto.  
+```
+bandit0@bandit:~$ cat readme
+"The password you are looking for is: ZjLjTmM6FvvyRnrb2rfNWOZOTa6ip5If"
+```
+#### ¬ Nivel 1 -> Nivel 2  
+Ahora cambiaremos usuario al "bandit1" para iniciar sesion, y pondremos la contraseña que ya obtenimos.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
