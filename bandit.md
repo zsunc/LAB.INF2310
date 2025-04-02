@@ -62,7 +62,8 @@ SSH: bandit3@bandit.labs.overthewire.org -p 2220
 
 
 
-[//]: # (> User: bandit  
+[//]: # (
+> User: bandit  
 Password: M  
 SSH: bandit@bandit.labs.overthewire.org -p 2220  
 )
