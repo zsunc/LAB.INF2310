@@ -13,7 +13,7 @@ una vez dentro nos pedira la contraseña que es *bandit0*, si la contraseña es 
 ```
 bandit0@bandit:~$
 ```
-Con esto empezamos usando un comando `ls` con el cual vemos que hay un archivo "readme", en el cual se encuentra la contraseña para el siguiente nivel, la cual preferentemente guardaremos en un archivo de texto.  
+Con esto empezamos usando un comando `ls` con el cual vemos que hay un archivo *readme*, en el cual se encuentra la contraseña para el siguiente nivel, la cual preferentemente guardaremos en un archivo de texto.  
 ```
 bandit0@bandit:~$ ls
 readme
@@ -25,7 +25,7 @@ bandit0@bandit:~$ cat readme
 Password: ZjLjTmM6FvvyRnrb2rfNWOZOTa6ip5If  
 SSH: bandit1@bandit.labs.overthewire.org -p 2220  
 
-Ahora cambiaremos usuario al "bandit1" para iniciar sesion, y pondremos la contraseña que ya obtenimos.  
+Ahora cambiaremos usuario al **bandit1** para iniciar sesion, y pondremos la contraseña que ya obtenimos.  
 Al iniciar la sesion primero vemos el directorio */home/* y al hacerle `ls` vemos que hay un directorio *bandit1*
 que dentro tiene un texto ASCII, entonces vamos a abrirlo con el comando `cat` y asi obtenemos la contraseña para el siguiente nivel.  
 ```
@@ -43,7 +43,7 @@ bandit1@bandit:/home$ cat /home/bandit1/-
 Password: 263JGJPfgU6LtdEvgfWU1XP5yac29mFx  
 SSH: bandit2@bandit.labs.overthewire.org -p 2220  
 
-Para este nivel ingresamos con el usuario "bandit2", al ingresar y hacer `ls` vemos un archivo "spaces in this filename", en Linux si un archivo tiene espacios en su nombre, necesitamos escapar estos espacios o usar comillas.  
+Para este nivel ingresamos con el usuario "bandit2", al ingresar y hacer `ls` vemos un archivo *spaces in this filename*, en Linux si un archivo tiene espacios en su nombre, necesitamos escapar estos espacios o usar comillas.  
 Con eso obtendriamos la contraseña para el siguiente nivel.  
 ```
 bandit2@bandit:~$ ls
@@ -56,14 +56,29 @@ MNk8KNH3Usiio41PRUEoDFPqfxLPlSmx
 Password: MNk8KNH3Usiio41PRUEoDFPqfxLPlSmx  
 SSH: bandit3@bandit.labs.overthewire.org -p 2220  
 
+Al iniciar sesion podremos ver que si hacemos `ls` vemos un directorio *inhere*, en el cual hay archivos ocultos entonces hacemos `ls -la` y nos encontramos con un documento llamado *Hiding-From-You*, entonces accedemos al documento y obtenemos la contraseña para el siguiente nivel.  
+```
+bandit3@bandit:~$ ls
+inhere
+bandit3@bandit:~$ cd inhere/
+bandit3@bandit:~/inhere$ ls -la
+total 12
+drwxr-xr-x 2 root    root    4096 Sep 19  2024 .
+-rw-r----- 1 bandit4 bandit3   33 Sep 19  2024 ...Hiding-From-You
+bandit3@bandit:~/inhere$ cat ...Hiding-From-You
+2WmrDFRmJIq3IPxneAaMGhap0pFhF3NJ
+```
+### ¬ Nivel 4 -> Nivel 5
+> User: bandit4  
+Password: 2WmrDFRmJIq3IPxneAaMGhap0pFhF3NJ  
+SSH: bandit@bandit.labs.overthewire.org -p 2220  
 ...
 
 
 
 
 
-[//]: # (
-> User: bandit  
+[//]: # ( > User: bandit  
 Password: M  
 SSH: bandit@bandit.labs.overthewire.org -p 2220  
 )
