@@ -1,4 +1,4 @@
-Univ. Fernando C.
+Univ. Fernando C.  
 Para entrar al nivel 1 necesitamos la contraseña para el usuario "bandit1" para lo cual entraremos a la pagina mediante una terminal en linux o powershell en windows, en este caso usare un S.O. linux.
 entramos desde la terminal como el usuario "bandit0" asegurando estar en el puerto 2220.
 **PowerShell**
