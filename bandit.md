@@ -1,10 +1,13 @@
 Univ. Fernando C.
-
-```PowerShell
-public class xd{
-s
-}
+Para entrar al nivel 1 necesitamos la contraseña para el usuario "bandit1" para lo cual entraremos a la pagina mediante una terminal en linux o powershell en windows, en este caso usare un S.O. linux.
+entramos desde la terminal como el usuario "bandit0" asegurando estar en el puerto 2220.
+**PowerShell**
 ```
+ssh bandit0@bandit.labs.overthewire.org -p 2220
+```
+
+una vez dentro nos pedira la contraseña, que es bandit0. Una vez logueados nos deberi aparecer asi: 
+
 Bandit Codes level 0-33 
 
 level 0 --> bandit0
