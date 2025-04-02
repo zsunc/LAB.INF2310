@@ -153,6 +153,9 @@ password: -
 ssh: bandit@bandit.labs.overthewire.org -p 2220  
 )
 
+
+`01/04 | v.1.0`
+
 #### Lista de codigos Nivel 0-33 
 ```
 level 0 --> bandit0
