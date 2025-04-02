@@ -1,3 +1,10 @@
+<style>
+body {
+    background-color: black;
+    color: white;
+}
+</style>
+
 ## Bandit
 ### ¬ Nivel 0 -> Nivel 1  
 Para ingresar al nivel 1, necesitamos la contraseña del usuario "bandit1". Para ello, nos conectaremos al servidor a través de una terminal de Linux (o de Powershell en Windows), en este caso, voy a utilizar un sistema operativo Linux con su interfaz de línea de comandos (shell).  
