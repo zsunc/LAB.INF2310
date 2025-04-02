@@ -3,7 +3,7 @@
 User: bandit0  
 Password: bandit0  
 SSH: bandit2@bandit.labs.overthewire.org -p 2220  
--------  
+---
 Para ingresar al nivel 1, necesitamos la contraseña del usuario "bandit1". Para ello, nos conectaremos al servidor a través de una terminal de Linux (o de Powershell en Windows), en este caso, voy a utilizar un sistema operativo Linux con su interfaz de línea de comandos (shell).  
 Luego, usaremos el comando `ssh` para conectarnos al servidor con el usuario **bandit0** en el puerto 2220, con esto establecemos una conexión remota segura con el servidor:
 ```
