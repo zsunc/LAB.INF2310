@@ -71,8 +71,52 @@ bandit3@bandit:~/inhere$ cat ...Hiding-From-You
 ### ¬ Nivel 4 -> Nivel 5
 > User: bandit4  
 Password: 2WmrDFRmJIq3IPxneAaMGhap0pFhF3NJ  
-SSH: bandit@bandit.labs.overthewire.org -p 2220  
-...
+SSH: bandit4@bandit.labs.overthewire.org -p 2220  
+
+En este nivel al dinamica es la misma al anterior nivel, pero en esta vez habra que buscar en varios directorios, pero el correcto termina siendo el *file07*.  
+Obteniendo asi la contraseña para el siguiente nivel.  
+```
+bandit4@bandit:~$ ls
+inhere
+bandit4@bandit:~$ cd inhere/
+bandit4@bandit:~/inhere$ ls
+-file00  -file02  -file04  -file06  -file08
+-file01  -file03  -file05  -file07  -file09
+bandit4@bandit:~/inhere$ cat /home/bandit4/inhere/-file07
+4oQYVPkxZOOEOO5pTW81FB8j8lxXGUQw
+```
+### ¬ Nivel 5 -> Nivel 6 
+> User: bandit5  
+Password: 4oQYVPkxZOOEOO5pTW81FB8j8lxXGUQw  
+SSH: bandit5@bandit.labs.overthewire.org -p 2220  
+
+Para este nivel el desafio se mantiene en los directorios variados donde tenemos que encontrar el directorio correcto, por ahora en esta ocacion tambien lo encontramos en un directorio `/home/bandit5/inhere/maybehere07/.file2`.  
+Con eso encontramos la contraseña para el proximo nivel  
+```
+bandit5@bandit:~$ ls
+inhere
+bandit5@bandit:~$ cd inhere/
+bandit5@bandit:~/inhere$ ls
+maybehere00  maybehere05  maybehere10  maybehere15
+maybehere01  maybehere06  maybehere11  maybehere16
+maybehere02  maybehere07  maybehere12  maybehere17
+bandit5@bandit:~/inhere$ cd maybehere07/
+bandit5@bandit:~/inhere/maybehere07$ ls -la
+total 56
+drwxr-x---  2 root bandit5 4096 Sep 19  2024 .
+drwxr-x--- 22 root bandit5 4096 Sep 19  2024 ..
+-rw-r-----  1 root bandit5 2488 Sep 19  2024 -file2
+-rw-r-----  1 root bandit5 1033 Sep 19  2024 .file2
+bandit5@bandit:~/inhere/maybehere07$ cat .file2
+HWasnPhtq9AVKe0dmk45nxy20cvUa6EG
+```
+### ¬ Nivel 6 -> Nivel 7
+> User: bandit6  
+Password: HWasnPhtq9AVKe0dmk45nxy20cvUa6EG  
+SSH: bandit6@bandit.labs.overthewire.org -p 2220  
+
+ss
+
 
 
 
