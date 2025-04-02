@@ -1,9 +1,16 @@
-### `RESOLUCION DE DESAFIOS DE LA PAGINA OVER THE WIRE`
+## RESOLUCION DE PROBLEMAS EN LA PAGINA OVER THE WIRE
 
-**En este repositorio se vera una guia rapida de resolucion de los niveles:**  
--[Bandit](bandit.md).  
--Natas.  
--Leviathan.  
--Kripton.  
--Narnia.  
--Behemont.  
+### Contenido: 
+
+- [Bandit.](bandit.md)  
+- Natas.  
+- Leviathan.  
+- Kripton.  
+- Narnia.  
+- Behemont.  
+
+### Listas y extras:
+- [listas.](Scores.md)
+
+
+<br>`02/04 | 1.0`
