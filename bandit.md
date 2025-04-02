@@ -90,7 +90,7 @@ bandit4@bandit:~/inhere$ cat /home/bandit4/inhere/-file07
 Password: 4oQYVPkxZOOEOO5pTW81FB8j8lxXGUQw  
 SSH: bandit5@bandit.labs.overthewire.org -p 2220  
 
-Para este nivel el desafio se mantiene en los directorios variados donde tenemos que encontrar el directorio correcto, por ahora en esta ocacion tambien lo encontramos en un directorio `/home/bandit5/inhere/maybehere07/.file2`.  
+Para este nivel el desafio se mantiene en los directorios variados donde tenemos que encontrar el directorio correcto, por ahora en esta ocacion tambien lo encontramos en un directorio `maybehere07/.file2`.  
 Con eso encontramos la contraseña para el proximo nivel  
 ```
 bandit5@bandit:~$ ls
@@ -115,9 +115,23 @@ HWasnPhtq9AVKe0dmk45nxy20cvUa6EG
 Password: HWasnPhtq9AVKe0dmk45nxy20cvUa6EG  
 SSH: bandit6@bandit.labs.overthewire.org -p 2220  
 
-ss
+Para este nivel al iniciar sesion, realizaremos la misma busqueda en */home/*, tambien tendremos que buscar con un `ls` y asi poder buscar un archivo, al ver las pistas que ofrece la pagina para ayudarnos vemos esto:  
+*owned by user bandit7*  
+*owned by group bandit6*  
+*33 bytes in size*  
+Esta informacion la podemos usar como parametros con `find`y asi encontrar un archivo que llame nuestra atencion.  
+Al revisar veremos varios directorios a los cuales tenemos el acceso negado, revisando veremos un directorio con un archivo *bandit7.password*, al cual si hacemos cat con el directorio que tiene, obtendriamos la contraseña para el siguiente nivel.  
+```
+bandit6@bandit:~$ find / -size 33c -user bandit7 -group bandit6
 
-
+find: ‘/drifter/drifter14_src/axTLS’: Permission denied
+find: ‘/root’: Permission denied
+find: ‘/snap’: Permission denied
+find: ‘/var/lib/amazon’: Permission denied
+/var/lib/dpkg/info/bandit7.password
+bandit6@bandit:~$ cat /var/lib/dpkg/info/bandit7.password
+morbNTDkSW6jIlUc0ymOdMaLnOlFVAaj
+```   
 
 
 
