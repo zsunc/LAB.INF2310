@@ -18,6 +18,7 @@ bandit0@bandit:~$ cat readme
 Ahora cambiaremos usuario al "bandit1" para iniciar sesion, y pondremos la contraseña que ya obtenimos.
 
 123 test 
+22 tt
 
 
 
