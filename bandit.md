@@ -1,7 +1,7 @@
 ## Bandit
 ### ¬ Nivel 0 -> Nivel 1  
 Para ingresar al nivel 1, necesitamos la contraseña del usuario "bandit1". Para ello, nos conectaremos al servidor a través de una terminal de Linux (o de Powershell en Windows), en este caso, voy a utilizar un sistema operativo Linux con su interfaz de línea de comandos (shell).  
-Luego, usaremos el comando ***ssh*** para conectarnos al servidor con el usuario **bandit0** en el puerto 2220, con esto establecemos una conexión remota segura con el servidor:
+Luego, usaremos el comando `ssh` para conectarnos al servidor con el usuario **bandit0** en el puerto 2220, con esto establecemos una conexión remota segura con el servidor:
 ```
 ssh bandit0@bandit.labs.overthewire.org -p 2220
 ```
@@ -9,7 +9,7 @@ una vez dentro nos pedira la contraseña que es *bandit0*, si la contraseña es 
 ```
 bandit0@bandit:~$
 ```
-Con esto empezamos usando un comando ***ls*** con el cual vemos que hay un archivo "readme", en el cual se encuentra la contraseña para el siguiente nivel, la cual preferentemente guardaremos en un archivo de texto.  
+Con esto empezamos usando un comando `ls` con el cual vemos que hay un archivo "readme", en el cual se encuentra la contraseña para el siguiente nivel, la cual preferentemente guardaremos en un archivo de texto.  
 ```
 bandit0@bandit:~$ ls
 readme
@@ -18,8 +18,8 @@ bandit0@bandit:~$ cat readme
 ```
 ### ¬ Nivel 1 -> Nivel 2  
 Ahora cambiaremos usuario al "bandit1" para iniciar sesion, y pondremos la contraseña que ya obtenimos.  
-Al iniciar la sesion primero vemos el directorio */home/* y al hacerle un ***ls*** vemos que hay un directorio *bandit1*
-que dentro tiene un texto ASCII, entonces vamos a abrirlo con el comando ***cat*** y asi obtenemos la contraseña para el siguiente nivel.  
+Al iniciar la sesion primero vemos el directorio */home/* y al hacerle `ls` vemos que hay un directorio *bandit1*
+que dentro tiene un texto ASCII, entonces vamos a abrirlo con el comando `cat` y asi obtenemos la contraseña para el siguiente nivel.  
 ```
 bandit1@bandit:~$ ls
 -
@@ -31,7 +31,7 @@ bandit1@bandit:/home$ cat /home/bandit1/-
 263JGJPfgU6LtdEvgfWU1XP5yac29mFx
 ```
 ### ¬ Nivel 2 -> Nivel 3
-Para este nivel ingresamos con el usuario "bandit2", al ingresar y hacer ***ls*** vemos un archivo "spaces in this filename", en Linux si un archivo tiene espacios en su nombre, necesitamos escapar estos espacios o usar comillas.  
+Para este nivel ingresamos con el usuario "bandit2", al ingresar y hacer `ls` vemos un archivo "spaces in this filename", en Linux si un archivo tiene espacios en su nombre, necesitamos escapar estos espacios o usar comillas.  
 Con eso obtendriamos la contraseña para el siguiente nivel.  
 ```
 bandit2@bandit:~$ ls
