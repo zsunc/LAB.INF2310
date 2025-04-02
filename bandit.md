@@ -17,7 +17,7 @@ bandit0@bandit:~$ cat readme
 ### ¬ Nivel 1 -> Nivel 2  
 Ahora cambiaremos usuario al "bandit1" para iniciar sesion, y pondremos la contraseña que ya obtenimos.
 
-
+123 test 
 
 
 
