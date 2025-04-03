@@ -4,15 +4,15 @@
 
 ### Contenido: 
 
-- [Bandit.](bandit.md)  
-- [Natas.](natas.md)  
+- [Bandit.](content/bandit.md)  
+- [Natas.](content/natas.md)  
 - Leviathan.  
 - Kripton.  
 - Narnia.  
 - Behemont.  
 
 ### Listas y extras:
-- [listas.](scores.md)
+- [listas.](content/scores.md)
 
 **Si tienes un problema, publica el Issue y lo revisare. ^^**
 
