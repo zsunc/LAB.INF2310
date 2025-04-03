@@ -1,5 +1,6 @@
 ## Lista de codigos en los diferentes juegos
 - ### BANDIT [lvl. 0 → lvl. 33]
+
 ```
 user:       password:
 bandit0 --> bandit0
