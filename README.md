@@ -1,6 +1,6 @@
 ## RESOLUCION DE PROBLEMAS EN LA PAGINA OVER THE WIRE
 
-![overthewire](images/otw.png)  
+![overthewire](/images/otw.png)  
 
 ### Contenido: 
 
@@ -14,8 +14,8 @@
 ### Listas y extras:
 - [listas.](content/scores.md)
 
-**Si tienes un problema, publica el Issue y lo revisare. ^^**
+**prueba de gif:**
 
-![gatoespera](images/cat.gif)
+![gatoespera](/images/cat.gif)
 
 <br>`02/04 | 1.0`
