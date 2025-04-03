@@ -1,7 +1,5 @@
 ## Bandit
 
-![bandit](images/bdt.png)
-
 ### • Nivel 0 → Nivel 1  
 > user: bandit0  
 password: bandit0  
@@ -158,3 +156,6 @@ ssh: bandit@bandit.labs.overthewire.org -p 2220
 
 
 <br>`02/04 | v.1.0`
+
+[w]: images/
+[def]: images/cat.gif
