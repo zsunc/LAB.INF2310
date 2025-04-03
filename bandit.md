@@ -1,4 +1,7 @@
 ## Bandit
+
+![bandit](images/bdt.png)
+
 ### • Nivel 0 → Nivel 1  
 > user: bandit0  
 password: bandit0  
@@ -137,8 +140,8 @@ morbNTDkSW6jIlUc0ymOdMaLnOlFVAaj
 password: morbNTDkSW6jIlUc0ymOdMaLnOlFVAaj  
 ssh: bandit7@bandit.labs.overthewire.org -p 2220  
 
-
-
+*investigando las respuestas...*  
+![espera](images/sherlock.gif)
 
 ###  • Nivel  → Nivel  
 ###  • Nivel  → Nivel  

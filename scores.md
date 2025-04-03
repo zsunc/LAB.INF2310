@@ -38,7 +38,7 @@ bandit32 --> 3O9RfhqyAlVBEZpVb6LYStshZoqoSx5K
 bandit33 --> tQdtbs5D5i2vJwkO8mEyYEyTL8izoeJ0
 bandit34 --> no hay hasta el momento :))
 ```
-- ### NATAS [lvl. 0 → lvl. 5]
+- ### NATAS [lvl. 0 → lvl. 13]
 ```
 user:       password:
 natas0 --> natas0
