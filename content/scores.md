@@ -1,4 +1,4 @@
-## Lista de codigos en los diferentes juegos
+## Lista de contraseñas de los diferentes juegos
 - ### BANDIT [lvl. 0 → lvl. 33]
 
 ```

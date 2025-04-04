@@ -1,6 +1,6 @@
 ## Bandit
 
-![bandit](/images/bdt.png)  
+![bandit](/images/banditotw.png)  
 
 ### • Nivel 0 → Nivel 1  
 > user: bandit0  
@@ -140,14 +140,73 @@ morbNTDkSW6jIlUc0ymOdMaLnOlFVAaj
 password: morbNTDkSW6jIlUc0ymOdMaLnOlFVAaj  
 ssh: bandit7@bandit.labs.overthewire.org -p 2220  
 
+Para este nivel al iniciar la sesion y hacer `ls` podremos ver un documento *data.txt*.  
+En la pagina podremos ver esto:  
+- *The password for the next level is stored in the file data.txt next to the word "millionth"*  
+
+En este caso tambien usaremos la palabra millionth como un parametro con el comando `grep`, ya que al ver el *data.txt*, vemos una lista de usuarios con sus contraseñas.
+
+```
+bandit7@bandit:~$ ls
+data.txt
+bandit7@bandit:~$ grep 'millionth' data.txt
+millionth       dfwvzFQi4mU0wfNbFOe9RoWskMLg7eEc
+```
+###  • Nivel 8 → Nivel 9  
+> user: bandit8  
+password: dfwvzFQi4mU0wfNbFOe9RoWskMLg7eEc  
+ssh: bandit8@bandit.labs.overthewire.org -p 2220   
+
+Para este nivel, veremos un texto *data.txt*, como en el anterior nivel pero esta vez son puramente contraseñas y en la pagina se especifica que la contraseña para el siguiente nivel no se repite, con este dato, usaremos un comando `cat`, para abrir el *data.txt*, luego con `sort` ordenamos la lista del documento y poder usar `uniq -u` para encontrar la unica contraseña que no se repite.  
+```
+bandit8@bandit:~$ ls
+data.txt
+bandit8@bandit:~$ cat data.txt | sort | uniq -u
+4CKMh1JI91bUIZZPXDqGanal4xvAg0JM
+```
+###  • Nivel 9 → Nivel 10 
+> user: bandit9  
+password: 4CKMh1JI91bUIZZPXDqGanal4xvAg0JM  
+ssh: bandit9@bandit.labs.overthewire.org -p 2220  
+
+Para este nivel, en las indicaciones de la pagina nos menciona: *"preceded by several ‘=’ characters".*, esto nos da a entender que antes de la contraseña hay varios "=" agrupados, hacer `cat` al *data.txt* veremos que esta cifrado, para eso usamos `strings`, ahora vemos que el texto es mas legible, entonces usamos `grep '='` para buscar lineas de texto con el "=".
+```
+bandit9@bandit:~$ strings data.txt | grep '='
+}========== the
+3JprD========== passwordi
+qC(=
+~fDV3========== is
+=tZ~07
+D9========== FGUW5ilLVJrxX9kMYMmlN4MgbpfMiqey
+N=~[!N
+```
+###  • Nivel 10 → Nivel 11  
+> user: bandit10  
+password: FGUW5ilLVJrxX9kMYMmlN4MgbpfMiqey  
+ssh: bandit10@bandit.labs.overthewire.org -p 2220  
+
+En este nivel
+ 
+
+
+
+
+
+
+
+
+
+
+###  • Nivel  → Nivel  
+###  • Nivel  → Nivel  
+###  • Nivel  → Nivel  
+###  • Nivel  → Nivel  
+###  • Nivel  → Nivel  
+###  • Nivel  → Nivel  
+
+
 *investigando las respuestas...*  
 ![espera](/images/sherlock.gif)
-
-###  • Nivel  → Nivel  
-###  • Nivel  → Nivel  
-###  • Nivel  → Nivel  
-###  • Nivel  → Nivel  
-
 
 
 
@@ -157,7 +216,7 @@ ssh: bandit@bandit.labs.overthewire.org -p 2220
 )
 
 
-<br>`02/04 | v.1.0`
+<br>`03/04 | v.1.0`
 
 [w]: images/
 [def]: images/cat.gif
