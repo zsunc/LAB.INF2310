@@ -185,22 +185,136 @@ N=~[!N
 password: FGUW5ilLVJrxX9kMYMmlN4MgbpfMiqey  
 ssh: bandit10@bandit.labs.overthewire.org -p 2220  
 
-En este nivel
+En este nivel vemos que el archivo *data.txt* se encuentra con un codificado base64, para lo cual usaremos el comando `base64 -d` para poder ver el contenido del documento.  
+```
+bandit10@bandit:~$ ls
+data.txt
+bandit10@bandit:~$ cat data.txt
+VGhlIHBhc3N3b3JkIGlzIGR0UjE3M2ZaS2IwUlJzREZTR3NnMlJXbnBOVmozcVJyCg==
+bandit10@bandit:~$ base64 -d data.txt
+The password is dtR173fZKb0RRsDFSGsg2RWnpNVj3qRr
+```
+###  • Nivel 11 → Nivel 12  
+> user: bandit11  
+password: dtR173fZKb0RRsDFSGsg2RWnpNVj3qRr  
+ssh: bandit11@bandit.labs.overthewire.org -p 2220  
+
+En este nivel nos deja que *s*, esto nos da a entender que esta con un cifrado ROT13, para eso usaremos `tr` con `A-Za-z` que son todas las letras mayusculas y minusaculas, `N-ZA-Mn-za-m` y con esto rotamos los 13 lugares.  
+```
+bandit11@bandit:~$ ls
+data.txt
+bandit11@bandit:~$ cat data.txt
+Gur cnffjbeq vf 7k16JArUVv5LxVuJfsSVdbbtaHGlw9D4
+bandit11@bandit:~$ cat data.txt | tr A-Za-z N-ZA-Mn-za-m
+The password is 7x16WNeHIi5YkIhWsfFIqoognUTyj9Q4
+```
+###  • Nivel 12 → Nivel 13  
+> user: bandit12  
+password: 7x16WNeHIi5YkIhWsfFIqoognUTyj9Q4  
+ssh: bandit12@bandit.labs.overthewire.org -p 2220  
+
+Para este nivel crearemos un directorio `/tmp/tmp.zsc`, al cual copiaremos el *data.txt*, sabemos que es un volcado hexadecimal asi que primero sera revertirlo, para eso lo renombramos como *hex_data.hex*, seguido podemos usar el comando `xxd` con el `-r` para revertilo cambiandole el nombre a *comp_data*.  
+```
+bandit12@bandit:~$ mkdir /tmp/tmp.zsc
+bandit12@bandit:~$ cp data.txt /tmp/tmp.zsc/data.txt
+bandit12@bandit:~$ cd /tmp/tmp.zsc
+bandit12@bandit:/tmp/tmp.zsc$ ls
+data.txt
+bandit12@bandit:/tmp/tmp.zsc$ mv data.txt hex_data
+bandit12@bandit:/tmp/tmp.zsc$ xxd -r hex_data comp_data
+```
+Al ver el tipo de archivo que es vemos un comprimido *gzip*, entonces le cambiaremos el nombre para luego descomprimirlo con `gzip -d`. 
+```
+bandit12@bandit:/tmp/tmp.zsc$ file comp_data
+comp_data: gzip compressed data, was "data2.bin", last modified: Thu Sep 19 07:08:15 2024, max compression, from Unix, original size modulo 2^32 574
+bandit12@bandit:/tmp/tmp.zsc$ mv comp_data gz_data.gz
+bandit12@bandit:/tmp/tmp.zsc$ ls
+gz_data.gz  hex_data
+bandit12@bandit:/tmp/tmp.zsc$ gzip -d gz_data.gz
+bandit12@bandit:/tmp/tmp.zsc$ ls
+gz_data  hex_data
+```
+Una vez descomprimido podremos ver que nos dejo otro archivo, si vemos us tipo es un comprimido *bzip2*, repetimos los pasos anteriores para este archivo y descomprimimos con `bzip2 -d`.
+```
+bandit12@bandit:/tmp/tmp.zsc$ file gz_data
+gz_data: bzip2 compressed data, block size = 900k
+bandit12@bandit:/tmp/tmp.zsc$ mv gz_data b2_data.bz2
+bandit12@bandit:/tmp/tmp.zsc$ bzip2 -d b2_data.bz2
+bandit12@bandit:/tmp/tmp.zsc$ ls
+b2_data  hex_data
+```
+Ahora nos queda un archivo *gzip*, entonces repetimos los anteriores pasos.
+```
+bandit12@bandit:/tmp/tmp.zsc$ file b2_data
+b2_data: gzip compressed data, was "data4.bin", last modified: Thu Sep 19 07:08:15 2024, max compression, from Unix, original size modulo 2^32 20480
+bandit12@bandit:/tmp/tmp.zsc$ mv b2_data gz_data.gz
+bandit12@bandit:/tmp/tmp.zsc$ gzip -d gz_data.gz
+bandit12@bandit:/tmp/tmp.zsc$ ls
+gz_data  hex_data
+```
+Ahora nos queda un archivo tar asi que renombraremos y usaremos `tar -xf` para poder extraer el contenido.  
+```
+bandit12@bandit:/tmp/tmp.zsc$ file gz_data
+gz_data: POSIX tar archive (GNU)
+bandit12@bandit:/tmp/tmp.zsc$ mv gz_data tar_data.tar
+bandit12@bandit:/tmp/tmp.zsc$ tar -xf tar_data.tar
+bandit12@bandit:/tmp/tmp.zsc$ ls
+data5.bin  hex_data  tar_data.tar
+```
+Repetimos los pasos anteriores con el archivo *data5.bin*, que se encontraba dentro del *.tar*.
+```
+bandit12@bandit:/tmp/tmp.zsc$ file data5.bin
+data5.bin: POSIX tar archive (GNU)
+bandit12@bandit:/tmp/tmp.zsc$ tar -xf data5.bin
+bandit12@bandit:/tmp/tmp.zsc$ ls
+data5.bin  data6.bin  hex_data  tar_data.tar
+```
+Ahora volvemos a un comprimido *bzip2*, pero esta vez lo descomprimimos sin cambiarle la extension.
+
+```
+bandit12@bandit:/tmp/tmp.zsc$ file data6.bin
+data6.bin: bzip2 compressed data, block size = 900k
+bandit12@bandit:/tmp/tmp.zsc$ ls
+data5.bin  data6.bin  hex_data  tar_data.tar
+bandit12@bandit:/tmp/tmp.zsc$ bzip2 -d data6.bin
+bzip2: Can't guess original name for data6.bin -- using data6.bin.out
+```
+Esto nos dejara con un *data6.bin.out*, que si le hacemos `file` veremos que es un archivo *tar*, entonces procedemos a descomprimirlo.
+
+```
+bandit12@bandit:/tmp/tmp.zsc$ ls
+data5.bin  data6.bin.out  hex_data  tar_data.tar
+bandit12@bandit:/tmp/tmp.zsc$ file data6.bin.out
+data6.bin.out: POSIX tar archive (GNU)
+bandit12@bandit:/tmp/tmp.zsc$ tar -xf data6.bin.out
+```
+Veremos que nos deja un archivo *data8.bin*, que si vemos el tipo de archivo, es un comprimido *gzip*, entonces procedemos a cambiarle la extension y descomprimirlo.
+
+```
+bandit12@bandit:/tmp/tmp.zsc$ ls
+data5.bin  data6.bin.out  data8.bin  hex_data  tar_data.tar
+bandit12@bandit:/tmp/tmp.zsc$ file data8.bin
+data8.bin: gzip compressed data, was "data9.bin", last modified: Thu Sep 19 07:08:15 2024, max compression, from Unix, original size modulo 2^32 49
+bandit12@bandit:/tmp/tmp.zsc$ mv data8.bin data8.gz
+bandit12@bandit:/tmp/tmp.zsc$ gzip -d data8.gz
+```
+Finalmente nos deja un archivo *data8*, que si lo abrimos con `cat` encontramos la contrasenia para el siguiente nivel.  
+```
+bandit12@bandit:/tmp/tmp.zsc$ ls
+data5.bin  data6.bin.out  data8  hex_data  tar_data.tar
+bandit12@bandit:/tmp/tmp.zsc$ cat data8
+The password is FO5dwFsc0cbaIiH0h8J2eUks2vdTDwAn
+```
+###  • Nivel 13 → Nivel 14  
+> user: bandit13  
+password: FO5dwFsc0cbaIiH0h8J2eUks2vdTDwAn  
+ssh: bandit13@bandit.labs.overthewire.org -p 2220  
+
+Para....
+
+
+
  
-
-
-
-
-
-
-
-
-
-
-###  • Nivel  → Nivel  
-###  • Nivel  → Nivel  
-###  • Nivel  → Nivel  
-###  • Nivel  → Nivel  
 ###  • Nivel  → Nivel  
 ###  • Nivel  → Nivel  
 
@@ -217,6 +331,3 @@ ssh: bandit@bandit.labs.overthewire.org -p 2220
 
 
 <br>`03/04 | v.1.0`
-
-[w]: images/
-[def]: images/cat.gif
