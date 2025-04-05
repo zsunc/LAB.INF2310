@@ -298,7 +298,7 @@ data8.bin: gzip compressed data, was "data9.bin", last modified: Thu Sep 19 07:0
 bandit12@bandit:/tmp/tmp.zsc$ mv data8.bin data8.gz
 bandit12@bandit:/tmp/tmp.zsc$ gzip -d data8.gz
 ```
-Finalmente nos deja un archivo *data8*, que si lo abrimos con `cat` encontramos la contrasenia para el siguiente nivel.  
+Finalmente nos deja un archivo *data8*, que si lo abrimos con `cat` encontramos la contraseña para el siguiente nivel.  
 ```
 bandit12@bandit:/tmp/tmp.zsc$ ls
 data5.bin  data6.bin.out  data8  hex_data  tar_data.tar
@@ -310,7 +310,49 @@ The password is FO5dwFsc0cbaIiH0h8J2eUks2vdTDwAn
 password: FO5dwFsc0cbaIiH0h8J2eUks2vdTDwAn  
 ssh: bandit13@bandit.labs.overthewire.org -p 2220  
 
-Para....
+Para este nivel, tendremos que entrar como el usuario bandit14 para poder encontrar la contraseña, para eso usaremos la *sshkey.private* en un localhost con `-i` para poder usar la *sshkey.private*, una vez dentro revisamos */etc/bandit_pass/bandit14*, para la contraseña del siguiente nivel.
+```
+bandit13@bandit:~$ ls
+sshkey.private
+bandit13@bandit:~$ ssh -i sshkey.private bandit14@localhost -p2220
+bandit14@bandit:~$ cat /etc/bandit_pass/bandit14
+MU4VWeTyJk8ROof1qqmcBPaLh7lDCPvS
+```
+###  • Nivel 14 → Nivel 15  
+> user: bandit14  
+password: MU4VWeTyJk8ROof1qqmcBPaLh7lDCPvS  
+ssh: bandit@bandit.labs.overthewire.org -p 2220  
+
+Para este nivel tendremos que enviar la contraseña del nivel actual a un puerto *30000* en un *localhost* con `nc` para poder escuchar al servidor, donde escribiremos la contraseña y si es correcta deberia devolvernos la contraseña para el siguiente nivel.
+```
+bandit14@bandit:~$ cat /etc/bandit_pass/bandit14
+MU4VWeTyJk8ROof1qqmcBPaLh7lDCPvS
+bandit14@bandit:~$ nc localhost 30000
+MU4VWeTyJk8ROof1qqmcBPaLh7lDCPvS
+Correct!
+8xCjnmgoKbGLhHFAZlGE5Tmu4M2tKJQo
+```
+###  • Nivel 14 → Nivel 15
+> user: bandit14  
+password: 8xCjnmgoKbGLhHFAZlGE5Tmu4M2tKJQo  
+ssh: bandit14@bandit.labs.overthewire.org -p 2220  
+
+Para este nivel se debe recuperar la contraseñapara el siguiente nivel mediante un cifrado SSL, para lo cual nos conectaremos al servidor local con `openssl s_client`, le enviamos la contraseña, y me devuelve la contraseña para el siguiente nivel.
+```
+bandit15@bandit:~$ openssl s_client -connect localhost:30001
+CONNECTED(00000003)
+---
+read R BLOCK
+8xCjnmgoKbGLhHFAZlGE5Tmu4M2tKJQo
+Correct!
+kSkvUpMQ7lBYyCM4GBPvCvT1BfWRy0Dx
+
+closed
+```
+###  • Nivel 15 → Nivel 16  
+> user: bandit15  
+password: kSkvUpMQ7lBYyCM4GBPvCvT1BfWRy0Dx  
+ssh: bandit@bandit.labs.overthewire.org -p 2220  
 
 
 
