@@ -321,7 +321,7 @@ MU4VWeTyJk8ROof1qqmcBPaLh7lDCPvS
 ###  • Nivel 14 → Nivel 15  
 > user: bandit14  
 password: MU4VWeTyJk8ROof1qqmcBPaLh7lDCPvS  
-ssh: bandit@bandit.labs.overthewire.org -p 2220  
+ssh: bandit14@bandit.labs.overthewire.org -p 2220  
 
 Para este nivel tendremos que enviar la contraseña del nivel actual a un puerto *30000* en un *localhost* con `nc` para poder escuchar al servidor, donde escribiremos la contraseña y si es correcta deberia devolvernos la contraseña para el siguiente nivel.
 ```
@@ -332,10 +332,10 @@ MU4VWeTyJk8ROof1qqmcBPaLh7lDCPvS
 Correct!
 8xCjnmgoKbGLhHFAZlGE5Tmu4M2tKJQo
 ```
-###  • Nivel 14 → Nivel 15
-> user: bandit14  
+###  • Nivel 15 → Nivel 16
+> user: bandit15  
 password: 8xCjnmgoKbGLhHFAZlGE5Tmu4M2tKJQo  
-ssh: bandit14@bandit.labs.overthewire.org -p 2220  
+ssh: bandit15@bandit.labs.overthewire.org -p 2220  
 
 Para este nivel se debe recuperar la contraseñapara el siguiente nivel mediante un cifrado SSL, para lo cual nos conectaremos al servidor local con `openssl s_client`, le enviamos la contraseña, y me devuelve la contraseña para el siguiente nivel.
 ```
@@ -349,10 +349,10 @@ kSkvUpMQ7lBYyCM4GBPvCvT1BfWRy0Dx
 
 closed
 ```
-###  • Nivel 15 → Nivel 16  
-> user: bandit15  
+###  • Nivel 16 → Nivel 17  
+> user: bandit16  
 password: kSkvUpMQ7lBYyCM4GBPvCvT1BfWRy0Dx  
-ssh: bandit@bandit.labs.overthewire.org -p 2220  
+ssh: bandit16@bandit.labs.overthewire.org -p 2220  
 
 
 
@@ -372,4 +372,4 @@ ssh: bandit@bandit.labs.overthewire.org -p 2220
 )
 
 
-<br>`03/04 | v.1.0`
+<br>`07/04 | v.1.0`
