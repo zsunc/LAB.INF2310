@@ -354,9 +354,190 @@ closed
 password: kSkvUpMQ7lBYyCM4GBPvCvT1BfWRy0Dx  
 ssh: bandit16@bandit.labs.overthewire.org -p 2220  
 
+Para este nivel tenemos 
+que enviar la contrasena del nivel actual a un puerto del host local en el rango de 31000 - 32000, para eso tenemos que encontrar los puertos abiertos en un host, para eso usaremos `nmap` que nos ayudara en el descubrimiento de host, y con `-sT` intentamos hacer una conexion con cada puerto.  
+```
+bandit16@bandit:~$ nmap -sT localhost -p 31000-32000
+Starting Nmap 7.94SVN ( https://nmap.org ) at 2025-04-17 19:15 UTC
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.00023s latency).
+Not shown: 996 closed tcp ports (conn-refused)
+PORT      STATE SERVICE
+31046/tcp open  unknown
+31518/tcp open  unknown
+31691/tcp open  unknown
+31790/tcp open  unknown
+31960/tcp open  unknown
+
+Nmap done: 1 IP address (1 host up) scanned in 0.12 seconds
+```
+Con esto, `nmap` nos indica que hay 5 puertos abiertos, hacemos `echo` de la contrasena del nivel actual y con el `openssl`nos conectamos a un puerto y vemos cual nos da respuesta, con el `-quiet` evitamos que `openssl` muestre informacion adicional.
+```
+ echo kSkvUpMQ7lBYyCM4GBPvCvT1BfWRy0Dx | openssl s_client -quiet -connect localhost:31790
+Can't use SSL_get_servername
+depth=0 CN = SnakeOil
+verify error:num=18:self-signed certificate
+verify return:1
+depth=0 CN = SnakeOil
+verify return:1
+Correct!
+-----BEGIN RSA PRIVATE KEY-----
+MIIEogIBAAKCAQEAvmOkuifmMg6HL2YPIOjon6iWfbp7c3jx34YkYWqUH57SUdyJ
+imZzeyGC0gtZPGujUSxiJSWI/oTqexh+cAMTSMlOJf7+BrJObArnxd9Y7YT2bRPQ
+Ja6Lzb558YW3FZl87ORiO+rW4LCDCNd2lUvLE/GL2GWyuKN0K5iCd5TbtJzEkQTu
+DSt2mcNn4rhAL+JFr56o4T6z8WWAW18BR6yGrMq7Q/kALHYW3OekePQAzL0VUYbW
+JGTi65CxbCnzc/w4+mqQyvmzpWtMAzJTzAzQxNbkR2MBGySxDLrjg0LWN6sK7wNX
+x0YVztz/zbIkPjfkU1jHS+9EbVNj+D1XFOJuaQIDAQABAoIBABagpxpM1aoLWfvD
+KHcj10nqcoBc4oE11aFYQwik7xfW+24pRNuDE6SFthOar69jp5RlLwD1NhPx3iBl
+J9nOM8OJ0VToum43UOS8YxF8WwhXriYGnc1sskbwpXOUDc9uX4+UESzH22P29ovd
+d8WErY0gPxun8pbJLmxkAtWNhpMvfe0050vk9TL5wqbu9AlbssgTcCXkMQnPw9nC
+YNN6DDP2lbcBrvgT9YCNL6C+ZKufD52yOQ9qOkwFTEQpjtF4uNtJom+asvlpmS8A
+vLY9r60wYSvmZhNqBUrj7lyCtXMIu1kkd4w7F77k+DjHoAXyxcUp1DGL51sOmama
++TOWWgECgYEA8JtPxP0GRJ+IQkX262jM3dEIkza8ky5moIwUqYdsx0NxHgRRhORT
+8c8hAuRBb2G82so8vUHk/fur85OEfc9TncnCY2crpoqsghifKLxrLgtT+qDpfZnx
+SatLdt8GfQ85yA7hnWWJ2MxF3NaeSDm75Lsm+tBbAiyc9P2jGRNtMSkCgYEAypHd
+HCctNi/FwjulhttFx/rHYKhLidZDFYeiE/v45bN4yFm8x7R/b0iE7KaszX+Exdvt
+SghaTdcG0Knyw1bpJVyusavPzpaJMjdJ6tcFhVAbAjm7enCIvGCSx+X3l5SiWg0A
+R57hJglezIiVjv3aGwHwvlZvtszK6zV6oXFAu0ECgYAbjo46T4hyP5tJi93V5HDi
+Ttiek7xRVxUl+iU7rWkGAXFpMLFteQEsRr7PJ/lemmEY5eTDAFMLy9FL2m9oQWCg
+R8VdwSk8r9FGLS+9aKcV5PI/WEKlwgXinB3OhYimtiG2Cg5JCqIZFHxD6MjEGOiu
+L8ktHMPvodBwNsSBULpG0QKBgBAplTfC1HOnWiMGOU3KPwYWt0O6CdTkmJOmL8Ni
+blh9elyZ9FsGxsgtRBXRsqXuz7wtsQAgLHxbdLq/ZJQ7YfzOKU4ZxEnabvXnvWkU
+YOdjHdSOoKvDQNWu6ucyLRAWFuISeXw9a/9p7ftpxm0TSgyvmfLF2MIAEwyzRqaM
+77pBAoGAMmjmIJdjp+Ez8duyn3ieo36yrttF5NSsJLAbxFpdlc1gvtGCWW+9Cq0b
+dxviW8+TFVEBl1O4f7HVm6EpTscdDxU+bCXWkfjuRb7Dy9GOtt9JPsX8MBTakzh3
+vBgsyi/sN3RqRBcGU40fOoZyfAMT8s1m/uYv52O6IgeuZ/ujbjY=
+-----END RSA PRIVATE KEY-----
+```
+En nuestro caso el puerto 31790 nos da una llave como en el nivel 13, para eso nos crearemos un directorio para guardar la llave con `nano` bajo el nombre de *sshkey*.
+```
+bandit16@bandit:~$ mkdir /tmp/zsc-16
+bandit16@bandit:~$ cd /tmp/zsc-16
+bandit16@bandit:/tmp/zsc-16$  nano sshkey
+bandit16@bandit:/tmp/zsc-16$ ls
+sshkey
+```
+para poder conectarnos tenemos que darle permisos de lectura y escritura al propietario para lo cual usaremos `chmod 600` en el *sshkey*, luego para conectarnos usaremos `-oHosKeyAlgorithms=+ssh-dss` para usar el algoritmo `ssh-dss`, que por defecto esta deshabilitado, y ponemos como identificador el *sshkey*.
+```
+bandit16@bandit:/tmp/zsc-16$ chmod 600 sshkey
+bandit16@bandit:/tmp/zsc-16$ ssh -oHostKeyAlgorithms=+ssh-dss -i sshkey bandit17@localhost -p 2220
+```
+Una vez dentro nos iremos al directorio */etc/bandit_pass/*, y veremos con `cat` *bandit17*, en la cual se encuentra la contrasena para el siguiente nivel.  
+```
+bandit17@bandit:~$ cd /etc/bandit_pass/
+bandit17@bandit:/etc/bandit_pass$ ls
+bandit0   bandit13  bandit18  bandit22  bandit27  bandit31  bandit6
+bandit1   bandit14  bandit19  bandit23  bandit28  bandit32  bandit7
+bandit10  bandit15  bandit2   bandit24  bandit29  bandit33  bandit8
+bandit11  bandit16  bandit20  bandit25  bandit3   bandit4   bandit9
+bandit12  bandit17  bandit21  bandit26  bandit30  bandit5
+bandit17@bandit:/etc/bandit_pass$ cat bandit17
+EReVavePLFHtFlFsjn3hyzMlvSuSAcRD
+```
+###  • Nivel 17 → Nivel 18
+> user: bandit17  
+password: EReVavePLFHtFlFsjn3hyzMlvSuSAcRD  
+ssh: bandit17@bandit.labs.overthewire.org -p 2220
+
+En este nivel hay 2 archivos en el directorio de inicio *passwords.old* y *passwords.new*, la contraseña para el siguiente nivel se encuentra en *passwords.new* y es la única línea que se ha modificado entre *passwords.old* y *passwords.new*, para eso usaremos `diff` para ver la diferencia entre los dos archivos.
+```
+bandit17@bandit:~$ diff passwords.old passwords.new
+42c42
+< C6XNBdYOkgt5ARXESMKWWOUwBeaIQZ0Y
+---
+> x2gLTTjFwMOhQ8oWNbMN362QKxfRqGlO
+```
+Como escribí *passwords.new* en segundo lugar, la contraseña también se imprime en la segunda parte.  
+###  • Nivel 18 → Nivel 19
+> user: bandit18  
+password: x2gLTTjFwMOhQ8oWNbMN362QKxfRqGlO  
+ssh: bandit@bandit.labs.overthewire.org -p 2220  
+
+En este nivel al iniciar normalmente nos cierra la sesion, pero si al final de toda la linea del ssh ponemos un comando pj. `cat`, podremos ver el readme que contiene la contrasena del siguiente nivel.
+```
+$ ssh bandit18@bandit.labs.overthewire.org -p 2220 ls
+                         _                     _ _ _
+                        | |__   __ _ _ __   __| (_) |_
+                        | '_ \ / _` | '_ \ / _` | | __|
+                        | |_) | (_| | | | | (_| | | |_
+                        |_.__/ \__,_|_| |_|\__,_|_|\__|
+                      This is an OverTheWire game server.
+            More information on http://www.overthewire.org/wargames
+bandit18@bandit.labs.overthewire.org's password:
+readme
+
+$ ssh bandit18@bandit.labs.overthewire.org -p 2220 cat readme
+bandit18@bandit.labs.overthewire.org's password:
+cGWpMaKXVwDUNgPAVJbWYuGHVn9zl3j8
+```
+###  • Nivel 19 → Nivel 20
+> user: bandit19  
+password: cGWpMaKXVwDUNgPAVJbWYuGHVn9zl3j8  
+ssh: bandit19@bandit.labs.overthewire.org -p 2220  
+
+Para acceder al siguiente nivel, debemos utilizar el binario setuid en el directorio de inicio, asi despues entramos a la carpeta */etc/bandi_pass/* y encontramos la contrasena.
+```
+bandit19@bandit:~$ ls -la
+total 36
+drwxr-xr-x  2 root     root      4096 Apr 10 14:23 .
+drwxr-xr-x 70 root     root      4096 Apr 10 14:24 ..
+-rwsr-x---  1 bandit20 bandit19 14884 Apr 10 14:23 bandit20-do
+-rw-r--r--  1 root     root       220 Mar 31  2024 .bash_logout
+bandit19@bandit:~$ ./bandit20-do ls /etc/bandit_pass
+bandit0   bandit13  bandit18  bandit22  bandit27  bandit31  bandit6
+bandit1   bandit14  bandit19  bandit23  bandit28  bandit32  bandit7
+bandit10  bandit15  bandit2   bandit24  bandit29  bandit33  bandit8
+bandit11  bandit16  bandit20  bandit25  bandit3   bandit4   bandit9
+bandit12  bandit17  bandit21  bandit26  bandit30  bandit5
+bandit19@bandit:~$ ./bandit20-do cat /etc/bandit_pass/bandit20
+0qXahG8ZjOVMN9Ghs7iOWsCfZyXOUbYO
+```
+###  • Nivel 20 → Nivel 21
+> user: bandit20  
+password: 0qXahG8ZjOVMN9Ghs7iOWsCfZyXOUbYO  
+ssh: bandit20@bandit.labs.overthewire.org -p 2220  
+
+En este nivel usremos `netcat` creamos una conexión en modo servidor, que escucha las conexiones entrantes, para que netcat mande la contrasena usamos `echo` y con `-n` nos evitamos caracteres de nueva línea en la entrada y dejamos que el proceso se ejecute en segundo plano con `&`, despues ejecutamos el binario con el puerto *1234* asi entonces recibira la contrasena enviada con `echo` y nos devolvera la clave para el siguiente nivel.
+```
+bandit20@bandit:~$ echo -n '0qXahG8ZjOVMN9Ghs7iOWsCfZyXOUbYO' | nc -l -p 1234 &
+[1] 474002
+bandit20@bandit:~$ ./suconnect 1234
+Read: 0qXahG8ZjOVMN9Ghs7iOWsCfZyXOUbYO
+Password matches, sending next password
+EeoULMCra2q0dSkYj561DX7s1CpBuOBt
+[1]+  Done                    echo -n '0qXahG8ZjOVMN9Ghs7iOWsCfZyXOUbYO' | nc -l -p 1234
+```
+###  • Nivel 21 → Nivel 22
+> user: bandit21  
+password: EeoULMCra2q0dSkYj561DX7s1CpBuOBt  
+ssh: bandit21@bandit.labs.overthewire.org -p 2220  
+
+En este nivel tenemos que buscar el programa se ejecuta automáticamente a intervalos regulares desde cron, para eso accederemos al directorio */etc/crond.d/*, y miraremos el archivo *cronjob_bandit22*, en el cual nos muestra un directorio con un *.sh* que si lo ponemos en la consola nos mostrara otro directorio, al cual si hacemos `cat` podremos ver la contrasena para el siguiente nivel.
+```
+bandit21@bandit:~$ cd /etc/cron.d
+bandit21@bandit:/etc/cron.d$ ls
+clean_tmp         cronjob_bandit23  e2scrub_all  sysstat
+cronjob_bandit22  cronjob_bandit24  otw-tmp-dir
+bandit21@bandit:/etc/cron.d$ cat cronjob_bandit22
+@reboot bandit22 /usr/bin/cronjob_bandit22.sh &> /dev/null
+* * * * * bandit22 /usr/bin/cronjob_bandit22.sh &> /dev/null
+bandit21@bandit:/etc/cron.d$ /usr/bin/cronjob_bandit22.sh
+chmod: changing permissions of '/tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv': Operation not permitted
+/usr/bin/cronjob_bandit22.sh: line 3: /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv: Permission denied
+bandit21@bandit:~$ cat /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
+tRae0UfB9v0UzbCdn9cY0gQnds9GF58Q
+```
+###  • Nivel 22 → Nivel 23
+> user: bandit22  
+password: tRae0UfB9v0UzbCdn9cY0gQnds9GF58Q  
+ssh: bandit22@bandit.labs.overthewire.org -p 2220  
+
+ws
 
 
- 
+
+
+
 ###  • Nivel  → Nivel  
 ###  • Nivel  → Nivel  
 
@@ -371,5 +552,4 @@ password: -
 ssh: bandit@bandit.labs.overthewire.org -p 2220  
 )
 
-
-<br>`07/04 | v.1.0`
+<br>`17.04 | ws`

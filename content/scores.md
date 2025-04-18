@@ -1,4 +1,4 @@
-## Lista de contraseñas de los diferentes juegos
+## Lista
 - ### BANDIT [lvl. 0 → lvl. 33]
 
 ```
@@ -60,4 +60,4 @@ natas14 ->
 ```
 
 
-<br>`03/04 | 1.0`
+<br>`17.04 | ws`
