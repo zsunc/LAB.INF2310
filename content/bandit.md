@@ -532,9 +532,47 @@ tRae0UfB9v0UzbCdn9cY0gQnds9GF58Q
 password: tRae0UfB9v0UzbCdn9cY0gQnds9GF58Q  
 ssh: bandit22@bandit.labs.overthewire.org -p 2220  
 
-ws
+Para este nivel debemos ejecutar el script que se encuentra en */etc/cron.d/cronjob_bandit23*, en el cual en el script nos pedira una entrada que debemos identificarnos con el usuario *bandit23* el cual nos dara un directorio en el que se encuentra la contrasena para el siguiente nivel.
+```
+bandit22@bandit:~$ cd /etc/
+bandit22@bandit:/etc$ ls
+credstore               ld.so.conf.d                screenrc
+credstore.encrypted     legal                       security
+cron.d                  libaudit.conf               selinux
+bandit22@bandit:/etc$ cd cron.d
+bandit22@bandit:/etc/cron.d$ ls
+clean_tmp         cronjob_bandit23  e2scrub_all  sysstat
+bandit22@bandit:/etc/cron.d$ cat cronjob_bandit23
+@reboot bandit23 /usr/bin/cronjob_bandit23.sh  &> /dev/null
+* * * * * bandit23 /usr/bin/cronjob_bandit23.sh  &> /dev/null
+bandit22@bandit:/etc/cron.d$ cat /usr/bin/cronjob_bandit23.sh
+#!/bin/bash
 
+myname=$(whoami)
+mytarget=$(echo I am user $myname | md5sum | cut -d ' ' -f 1)
 
+echo "Copying passwordfile /etc/bandit_pass/$myname to /tmp/$mytarget"
+
+cat /etc/bandit_pass/$myname > /tmp/$mytarget
+bandit22@bandit:/etc/cron.d$ echo I am user bandit23 | md5sum | cut -d ' ' -f 1
+8ca319486bfbbc3663ea0fbe81326349
+bandit22@bandit:/etc/cron.d$ cat /tmp/8ca319486bfbbc3663ea0fbe81326349
+0Zf11ioIjMVN551jX3CmStKLYqjk54Ga
+```
+###  • Nivel 23 → Nivel 24
+> user: bandit23  
+password: 0Zf11ioIjMVN551jX3CmStKLYqjk54Ga  
+ssh: bandit23@bandit.labs.overthewire.org -p 2220
+
+En este nivel debemos hacer nuestro propio script, pero antes crear una carpeta en */tmp/* para poder pasar la contrasena a esa carpeta sin que se elimine antes de tiempo, despues lo movemos a */var/spool/bandit24* para que se ejecute.
+```
+#!/bin/bash
+cat /etc/bandit_pass/bandit24 > /tmp/zsc/pass
+```
+una vez echo el script en el direcotrio que creamos, le otorgamos los permisos necesarios
+```
+
+```
 
 
 
@@ -552,4 +590,4 @@ password: -
 ssh: bandit@bandit.labs.overthewire.org -p 2220  
 )
 
-<br>`17.04 | ws`
+<br>`26.04 | ws`
