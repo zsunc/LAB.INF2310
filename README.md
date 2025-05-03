@@ -6,10 +6,12 @@
 
 - [Bandit.](content/bandit.md)  
 - [Natas.](content/natas.md)  
-- Leviathan.  
-- Kripton.  
-- Narnia.  
-- Behemont.  
+- [Leviathan.](content/leviathan.md) 
+- [Kripton.](content/kripton.md)  
+- [Narnia.](content/narnia.md)  
+- [Behemont.](content/behemont.md)
+- [Linux-journey.](content/linuxjourney.md)
+- [Hacker-rank.](content/hackerrank.md)  
 
 ### Listas y extras:
 - [listas.](content/scores.md)
