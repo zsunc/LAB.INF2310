@@ -1,4 +1,4 @@
-## RESOLUCION DE PROBLEMAS EN LA PAGINA OVER THE WIRE
+## RESOLUCION DE PROBLEMAS EN LA PAGINA OVER THE WIRE, LINUX JOURNEY & HACKER RANK
 
 ![overthewire](/images/otw.png)  
 
@@ -13,12 +13,12 @@
 - [Linux-journey.](content/linuxjourney.md)
 - [Hacker-rank.](content/hackerrank.md)  
 
-### Listas y extras:
-- [listas.](content/scores.md)
+### Contraseñas:
+- [passwords.](content/scores.md)
 
-**prueba de gif:**
+**Working...**
 
-![gatoespera](/images/cat.gif)
+![gatochambeando](/images/cat.gif)
 
 
-<br>`03/04 | 1.0`
+<br>`lx 03.05`

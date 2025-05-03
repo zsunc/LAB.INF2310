@@ -75,15 +75,51 @@ Al entrar al sitio del nivel, veremos que nos da la contraseña para el siguient
 password: 0RoJwHdSKWFTYR5WuiAewauSuNaBXned  
 url: http://natas6.natas.labs.overthewire.org  
 
+En este nivel debemos introducir un secreto, si revisamos el codigo fuente de la pagina, veremos esto:
+```
+<?
+
+include "includes/secret.inc";
+
+    if(array_key_exists("submit", $_POST)) {
+        if($secret == $_POST['secret']) {
+        print "Access granted. The password for natas7 is <censored>";
+    } else {
+        print "Wrong secret";
+    }
+    }
+?>
+```
+Lo que llama la atencion es el directorio *includes/secret.inc*, si accedemos a el y vemos el codigo fuente encontraremos el secreto y si lo introducimos, obtendremos la contraseña para el siguiente nivel.
+![natas6](/images/natas/n6.1.png)
+![natas6](/images/natas/n6.2.png)
+![natas6](/images/natas/n6.3.png)
+
 ###  • Nivel 7 → Nivel 8
-> user: natas  
-password: -  
-url: http://natas.natas.labs.overthewire.org  
+> user: natas7  
+password: bmg8SvU1LizuWjx3y7xkNERkHxGre0GS  
+url: http://natas7.natas.labs.overthewire.org  
+
+Para este nivel la pagina no valida la entrada page, y por lo tanto es vulnerable a ataques de cruce de ruta.
+Recordamos que la introducción de Natas Wargame dice: All passwords are also stored in */etc/natas_webpass/natas#*, por lo tanto, podemos intentar establecer el parámetro page como /etc/natas_webpass/natas8 y encontrar la contraseña.
+Para eso en la pagehome, iremos añadiendo *../* hasta encontrar el directorio donde se encuentra la contraseña.
+![natas7](/images/natas/n7.1.png)
+```
+http://natas7.natas.labs.overthewire.org/index.php?page=home../../../../../../../../../../etc/natas_webpass/natas8
+```
+con eso encontrariamos la contraseña.
+![natas7](/images/natas/n7.2.png)
 
 ###  • Nivel 8 → Nivel 9
-> user: natas  
-password: -  
-url: http://natas.natas.labs.overthewire.org  
+> user: natas8  
+password: xcoXLmzMkoIP9D7hlgPlh9XD7OgLAe5Q   
+url: http://natas8.natas.labs.overthewire.org  
+
+
+
+
+
+
 
 ###  • Nivel 9 → Nivel 10
 > user: natas  
@@ -209,7 +245,6 @@ url: http://natas.natas.labs.overthewire.org
 > user: natas  
 password: -  
 url: http://natas.natas.labs.overthewire.org  
-
 
 
 <br>`lx 03.05`
