@@ -453,7 +453,7 @@ Como escribí *passwords.new* en segundo lugar, la contraseña también se impri
 password: x2gLTTjFwMOhQ8oWNbMN362QKxfRqGlO  
 ssh: bandit@bandit.labs.overthewire.org -p 2220  
 
-En este nivel al iniciar normalmente nos cierra la sesion, pero si al final de toda la linea del ssh ponemos un comando pj. `cat`, podremos ver el readme que contiene la contrasena del siguiente nivel.
+En este nivel al iniciar normalmente nos cierra la sesion, pero si al final de toda la linea del ssh ponemos un comando pj. `cat`, podremos ver el readme que contiene la contraseña del siguiente nivel.
 ```
 $ ssh bandit18@bandit.labs.overthewire.org -p 2220 ls
                          _                     _ _ _
@@ -475,7 +475,7 @@ cGWpMaKXVwDUNgPAVJbWYuGHVn9zl3j8
 password: cGWpMaKXVwDUNgPAVJbWYuGHVn9zl3j8  
 ssh: bandit19@bandit.labs.overthewire.org -p 2220  
 
-Para acceder al siguiente nivel, debemos utilizar el binario setuid en el directorio de inicio, asi despues entramos a la carpeta */etc/bandi_pass/* y encontramos la contrasena.
+Para acceder al siguiente nivel, debemos utilizar el binario `setuid` en el directorio de inicio, asi despues entramos a la carpeta */etc/bandi_pass/* y encontramos la contraseña.
 ```
 bandit19@bandit:~$ ls -la
 total 36
@@ -497,7 +497,7 @@ bandit19@bandit:~$ ./bandit20-do cat /etc/bandit_pass/bandit20
 password: 0qXahG8ZjOVMN9Ghs7iOWsCfZyXOUbYO  
 ssh: bandit20@bandit.labs.overthewire.org -p 2220  
 
-En este nivel usremos `netcat` creamos una conexión en modo servidor, que escucha las conexiones entrantes, para que netcat mande la contrasena usamos `echo` y con `-n` nos evitamos caracteres de nueva línea en la entrada y dejamos que el proceso se ejecute en segundo plano con `&`, despues ejecutamos el binario con el puerto *1234* asi entonces recibira la contrasena enviada con `echo` y nos devolvera la clave para el siguiente nivel.
+En este nivel usaremos `netcat` creamos una conexión en modo servidor, que escucha las conexiones entrantes, para que netcat mande la contraseña usamos `echo` y con `-n` nos evitamos caracteres de nueva línea en la entrada y dejamos que el proceso se ejecute en segundo plano con `&`, despues ejecutamos el binario con el puerto *1234* asi entonces recibira la contraseña enviada con `echo` y nos devolveria la pass para el siguiente nivel.
 ```
 bandit20@bandit:~$ echo -n '0qXahG8ZjOVMN9Ghs7iOWsCfZyXOUbYO' | nc -l -p 1234 &
 [1] 474002
@@ -512,7 +512,7 @@ EeoULMCra2q0dSkYj561DX7s1CpBuOBt
 password: EeoULMCra2q0dSkYj561DX7s1CpBuOBt  
 ssh: bandit21@bandit.labs.overthewire.org -p 2220  
 
-En este nivel tenemos que buscar el programa se ejecuta automáticamente a intervalos regulares desde cron, para eso accederemos al directorio */etc/crond.d/*, y miraremos el archivo *cronjob_bandit22*, en el cual nos muestra un directorio con un *.sh* que si lo ponemos en la consola nos mostrara otro directorio, al cual si hacemos `cat` podremos ver la contrasena para el siguiente nivel.
+En este nivel tenemos que buscar el programa se ejecuta automáticamente a intervalos regulares desde cron, para eso accederemos al directorio */etc/crond.d/*, y miraremos el archivo *cronjob_bandit22*, en el cual nos muestra un directorio con un *.sh* que si lo ponemos en la consola nos mostrara otro directorio, al cual si hacemos `cat` podremos ver la contraseña para el siguiente nivel.
 ```
 bandit21@bandit:~$ cd /etc/cron.d
 bandit21@bandit:/etc/cron.d$ ls
@@ -532,7 +532,7 @@ tRae0UfB9v0UzbCdn9cY0gQnds9GF58Q
 password: tRae0UfB9v0UzbCdn9cY0gQnds9GF58Q  
 ssh: bandit22@bandit.labs.overthewire.org -p 2220  
 
-Para este nivel debemos ejecutar el script que se encuentra en */etc/cron.d/cronjob_bandit23*, en el cual en el script nos pedira una entrada que debemos identificarnos con el usuario *bandit23* el cual nos dara un directorio en el que se encuentra la contrasena para el siguiente nivel.
+Para este nivel debemos ejecutar el script que se encuentra en */etc/cron.d/cronjob_bandit23*, en el cual en el script nos pedira una entrada que debemos identificarnos con el usuario *bandit23* el cual nos dara un directorio en el que se encuentra la contraseña para el siguiente nivel.
 ```
 bandit22@bandit:~$ cd /etc/
 bandit22@bandit:/etc$ ls
@@ -564,12 +564,12 @@ bandit22@bandit:/etc/cron.d$ cat /tmp/8ca319486bfbbc3663ea0fbe81326349
 password: 0Zf11ioIjMVN551jX3CmStKLYqjk54Ga  
 ssh: bandit23@bandit.labs.overthewire.org -p 2220
 
-Para este nivel antes crearemos una carpeta en */tmp/* para poder pasar la contrasena ya que el *cronjob* se ejecuta y elimina todos los archivos de la carpeta */var/spool/bandit24*, para eso vreamos un script para poder encontrar la contrasena para bandit24, que copiara desde la carpeta de las contrasenas y pasarlo al directorio que creamos, para eso le otorgaremos los permisos al archivo y al directorio.
+Para este nivel antes crearemos una carpeta en */tmp/* para poder pasar la contraseña ya que el *cronjob* se ejecuta y elimina todos los archivos de la carpeta */var/spool/bandit24*, para eso crearemos un script para poder encontrar la contraseña para bandit24, que copiara desde la carpeta de las contraseñas y pasarlo al directorio que creamos, para eso le otorgaremos los permisos al archivo y al directorio.
 ```
 #!/bin/bash
 cat /etc/bandit_pass/bandit24 > /tmp/testzs/pass
 ```
-Una vez copiado tendremos que esperar un momento para obtener la contrasena viendo el archivo simple que creamos *pass*.
+Una vez copiado tendremos que esperar un momento para obtener la contraseña viendo el archivo simple que creamos *pass*.
 ```
 bandit23@bandit:~$ cd /etc/cron.d/
 bandit23@bandit:/etc/cron.d$ ls -l
@@ -615,7 +615,7 @@ drwxrwx-wt 2292 root     root     593920 May  3 05:05 ..
 -rwxrwxrwx    1 bandit23 bandit23      0 May  3 04:49 pass
 bandit23@bandit:/tmp/testzs$ cp getx.sh /var/spool/bandit24/getx.sh
 ```
-si todo esta correcto viendo el archivo simple encontraremos la contrasena.
+si todo esta correcto viendo el archivo simple encontraremos la contraseña.
 ```
 bandit23@bandit:/tmp/testzs$ cat pass
 gb8KRRCsshuZXI0tUuR6ypOFjiZbf3G8
@@ -625,7 +625,7 @@ gb8KRRCsshuZXI0tUuR6ypOFjiZbf3G8
 password: gb8KRRCsshuZXI0tUuR6ypOFjiZbf3G8  
 ssh: bandit24@bandit.labs.overthewire.org -p 2220  
 
-Para este nivel creammos un script con un rango especifico, tambien usaremos *netcat*.
+Para este nivel creammos un script con un rango especifico, tambien usaremos `netcat`.
 ```
 #!/bin/bash
 pass=gb8KRRCsshuZXI0tUuR6ypOFjiZbf3G8
@@ -634,7 +634,7 @@ do
 echo $pass $i >> zsun25.txt
 done
 ```
-una vez configurado el script le damos los permisos de ejecucion y luego verificamos que se crearon los archivos, para luego escuchar el puerto local 30002, en el cual nos dara la contrasena para el siguiente nivel.
+una vez configurado el script le damos los permisos de ejecucion y luego verificamos que se crearon los archivos, para luego escuchar el puerto local 30002, en el cual nos dara la contraseña para el siguiente nivel.
 ```
 bandit24@bandit:/tmp$ mkdir zsun25
 bandit24@bandit:/tmp$ cd zsun25
@@ -651,7 +651,7 @@ The password of user bandit25 is iCi86ttT4KSNe1armKiwbQNmB3YJP3q4
 password: iCi86ttT4KSNe1armKiwbQNmB3YJP3q4  
 ssh: bandit25@bandit.labs.overthewire.org -p 2220
 
-En este nivel se da un *bandit26.sshkey*, para poder ingresar mediante un localhost, pero con el comando *more* debemos hacer la ventana de la terminal del tamano mas reducido posible, una vez con *--More--* en la terminal, presionamos *h* para la ayuda seguido de *v* para entrar al editor, finalmente presionamos *:* para poder escribir *:set shell=/bin/bash* y aun dentro del editor ponemos *:shell*, con lo cual entramos como *bandit26*.
+En este nivel se da un *bandit26.sshkey*, para poder ingresar mediante un localhost, pero con el comando *more* debemos hacer la ventana de la terminal del tamano mas reducido posible, una vez con `--More--` en la terminal, presionamos *h* para la ayuda seguido de *v* para entrar al editor, finalmente presionamos *:* para poder escribir `:set shell=/bin/bash` y aun dentro del editor ponemos `:shell`, con lo cual entramos como *bandit26*.
 ```
 bandit25@bandit:~$ ls
 bandit26.sshkey
@@ -665,7 +665,7 @@ s0773xxkk0MXfdqOfPRVr9L3jJBUOgCZ
 password: s0773xxkk0MXfdqOfPRVr9L3jJBUOgCZ  
 ssh: bandit26@bandit.labs.overthewire.org -p 2220  
 
-Para este nivel necesitamos estar logueados desde el nivel anterior, ya que si intentamos entrar normalmente nos cerrara la sesion, cuando vemos los archivos vemos un ejecutable, para lo cual lo usaremos para entrar al direcotrio donde estan las contrasenas y asi obtenemos la contra para el proximo nivel.
+Para este nivel necesitamos estar logueados desde el nivel anterior, ya que si intentamos entrar normalmente nos cerrara la sesion, cuando vemos los archivos vemos un ejecutable, para lo cual lo usaremos para entrar al direcotrio donde estan las contraseñas y asi obtenemos la pass para el proximo nivel.
 ```
 bandit26@bandit:~$ ls
 bandit27-do  text.txt
@@ -680,7 +680,7 @@ upsNCc7vzaRDx6oZC6GiR6ERwe1MowGB
 password: upsNCc7vzaRDx6oZC6GiR6ERwe1MowGB  
 ssh: bandit27@bandit.labs.overthewire.org -p 2220  
 
-Para este nivel debemos copiar el repositorio que se especifica en la pagina, pero debemos especificar el puerto que usaremos, para eso anadiremos depues del localhost *:2220* especificando el puerto a usar.
+Para este nivel debemos copiar el repositorio que se especifica en la pagina, pero debemos especificar el puerto que usaremos, para eso añadiremos depues del localhost `:2220` especificando el puerto a usar.
 ```
 bandit27@bandit:/tmp/zgit$ git clone ssh://bandit27-git@localhost:2220/home/bandit27-git/repo
 Cloning into 'repo'...
@@ -697,7 +697,7 @@ The password to the next level is: Yz9IpL0sBcCeuG7m9uQFt8ZNpS4HZRcN
 password: Yz9IpL0sBcCeuG7m9uQFt8ZNpS4HZRcN  
 ssh: bandit28@bandit.labs.overthewire.org -p 2220  
 
-Para este nivel igualmente copiaremos el repositorio de la pagina, al momento de tener el repositorio en el archivo markdown vemos que hay un usuario pero no la contrasena, para ver si hubo algun cambio veremos el *git log* y vemos que hay un *fix info leak*, por lo cual vamos por buen camino, copiaremos el codigo del commit para ver el contenido de ese commit, al ver el contenido vemos que ahi esta la contrasena.
+Para este nivel igualmente copiaremos el repositorio de la pagina, al momento de tener el repositorio en el archivo markdown vemos que hay un usuario pero no la contraseña, para ver si hubo algun cambio veremos el *git log* y vemos que hay un *fix info leak*, por lo cual vamos por buen camino, copiaremos el codigo del commit para ver el contenido de ese commit, al ver el contenido vemos que ahi esta la contraseña.
 ```
 bandit28@bandit:~$ mkdir /tmp/zgit28
 bandit28@bandit:~$ cd /tmp/zgit28
@@ -752,7 +752,7 @@ index d4e3b74..5c6457b 100644
 password: 4pT1t5DENaYuqnqvadYs1oE4QLCdjmJ7  
 ssh: bandit29@bandit.labs.overthewire.org -p 2220  
 
-Para este nivel debemos cambiar de rama en la que estamos en el repositorio, si pasamos a *dev* y vemos el archivo markdown encontramos la contrasena para el siguiente nivel.
+Para este nivel debemos cambiar de rama en la que estamos en el repositorio, si pasamos a *dev* y vemos el archivo markdown encontramos la contraseña para el siguiente nivel.
 ```
 bandit29@bandit:~$ mkdir /tmp/zgit29
 bandit29@bandit:~$ cd /tmp/zgit29
@@ -800,7 +800,7 @@ Some notes for bandit30 of bandit.
 password: qp30ex3VLz5MDG1n91YowTv4Q8l7CDZL  
 ssh: bandit30@bandit.labs.overthewire.org -p 2220  
 
-En este nivel de igual manera copiamos el repositorio, pero al ver el archivo markdown, no vemos algo prometedor, pero si vemos la etiqueta veremos un *secret* y lo descubrimos encontraremos la contrasena para el siguiente nivel.
+En este nivel de igual manera copiamos el repositorio, pero al ver el archivo markdown, no vemos algo prometedor, pero si vemos la etiqueta veremos un *secret* y lo descubrimos encontraremos la contraseña para el siguiente nivel.
 ```
 bandit30@bandit:~$ mkdir /tmp/zgit30
 bandit30@bandit:~$ cd /tmp/zgit30
@@ -821,7 +821,7 @@ fb5S2xb7bRyFmAvQYQGEqsbhVyJqhnDy
 password: fb5S2xb7bRyFmAvQYQGEqsbhVyJqhnDy  
 ssh: bandit31@bandit.labs.overthewire.org -p 2220  
 
-Para este nivel tambien copiamos el repositorio, ale ver el markdown nos indica que debemos subir un archivo al repositorio, para eso creamos el archivo, una vez creado si lo intentamos subir el *.gitignore* no los permitira, para eso usaremos *git add* y lo subimos a la rama *origin master*.
+Para este nivel tambien copiamos el repositorio, al ver el markdown nos indica que debemos subir un archivo al repositorio, para eso creamos el archivo, una vez creado si lo intentamos subir el *.gitignore* no los permitira, para eso usaremos `git add` y lo subimos a la rama `origin master`.
 ```
 bandit31@bandit:~$ mkdir /tmp/zgitt
 bandit31@bandit:~$ cd /tmp/zgitt
@@ -854,7 +854,7 @@ To ssh://localhost:2220/home/bandit31-git/repo
 password: 3O9RfhqyAlVBEZpVb6LYStshZoqoSx5K  
 ssh: bandit32@bandit.labs.overthewire.org -p 2220  
 
-Para este nivel nos encontramos un shell diferente, si usamos comandos normales, parece estar todo en mayuscula, para salir del shell en mayusculas usaremos '$0' y asi usamos comandos normalmente, si buscamos la carpeta de las contrasenas podremos encontrar la ultima contrasena.
+Para este nivel nos encontramos un shell diferente, si usamos comandos normales, parece estar todo en mayuscula, para salir del shell en mayusculas usaremos `$0` y asi usamos comandos normalmente, si buscamos la carpeta de las contraseñas podremos encontrar la pass del siguiente nivel.
 ```
 WELCOME TO THE UPPERCASE SHELL
 >> $0
