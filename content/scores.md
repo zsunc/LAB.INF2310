@@ -37,7 +37,6 @@ bandit30 --> qp30ex3VLz5MDG1n91YowTv4Q8l7CDZL
 bandit31 --> fb5S2xb7bRyFmAvQYQGEqsbhVyJqhnDy
 bandit32 --> 3O9RfhqyAlVBEZpVb6LYStshZoqoSx5K
 bandit33 --> tQdtbs5D5i2vJwkO8mEyYEyTL8izoeJ0
-bandit34 --> no hay hasta el momento :))
 ```
 - ### NATAS [lvl. 0 → lvl. 13]
 ```
