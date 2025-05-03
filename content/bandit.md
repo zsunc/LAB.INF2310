@@ -886,9 +886,6 @@ In the meantime, you could play some of our other wargames.
 If you have an idea for an awesome new level, please let us know!
 ```
 
-*investigando las respuestas...*  
-![espera](/images/sherlock.gif)
-
 [//]: # ( GG )
 
 <br>`ws 03.05`
