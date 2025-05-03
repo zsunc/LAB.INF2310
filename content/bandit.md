@@ -564,30 +564,331 @@ bandit22@bandit:/etc/cron.d$ cat /tmp/8ca319486bfbbc3663ea0fbe81326349
 password: 0Zf11ioIjMVN551jX3CmStKLYqjk54Ga  
 ssh: bandit23@bandit.labs.overthewire.org -p 2220
 
-En este nivel debemos hacer nuestro propio script, pero antes crear una carpeta en */tmp/* para poder pasar la contrasena a esa carpeta sin que se elimine antes de tiempo, despues lo movemos a */var/spool/bandit24* para que se ejecute.
+Para este nivel antes crearemos una carpeta en */tmp/* para poder pasar la contrasena ya que el *cronjob* se ejecuta y elimina todos los archivos de la carpeta */var/spool/bandit24*, para eso vreamos un script para poder encontrar la contrasena para bandit24, que copiara desde la carpeta de las contrasenas y pasarlo al directorio que creamos, para eso le otorgaremos los permisos al archivo y al directorio.
 ```
 #!/bin/bash
-cat /etc/bandit_pass/bandit24 > /tmp/zsc/pass
+cat /etc/bandit_pass/bandit24 > /tmp/testzs/pass
 ```
-una vez echo el script en el direcotrio que creamos, le otorgamos los permisos necesarios
+Una vez copiado tendremos que esperar un momento para obtener la contrasena viendo el archivo simple que creamos *pass*.
+```
+bandit23@bandit:~$ cd /etc/cron.d/
+bandit23@bandit:/etc/cron.d$ ls -l
+total 28
+-rw-r--r-- 1 root root 123 Apr 10 14:16 clean_tmp
+-rw-r--r-- 1 root root 120 Apr 10 14:23 cronjob_bandit22
+-rw-r--r-- 1 root root 122 Apr 10 14:23 cronjob_bandit23
+-rw-r--r-- 1 root root 120 Apr 10 14:23 cronjob_bandit24
+-rw-r--r-- 1 root root 201 Apr  8  2024 e2scrub_all
+-rwx------ 1 root root  52 Apr 10 14:24 otw-tmp-dir
+-rw-r--r-- 1 root root 396 Jan  9  2024 sysstat
+bandit23@bandit:/etc/cron.d$ cat /usr/bin/cronjob_bandit24.sh
+#!/bin/bash
+
+myname=$(whoami)
+
+cd /var/spool/$myname/foo
+echo "Executing and deleting all scripts in /var/spool/$myname/foo:"
+for i in * .*;
+do
+    if [ "$i" != "." -a "$i" != ".." ];
+    then
+        echo "Handling $i"
+        owner="$(stat --format "%U" ./$i)"
+        if [ "${owner}" = "bandit23" ]; then
+            timeout -s 9 60 ./$i
+        fi
+        rm -f ./$i
+    fi
+done
+
+bandit23@bandit:/etc/cron.d$ mkdir /tmp/testzs
+bandit23@bandit:/etc/cron.d$ cd /tmp/testzs
+bandit23@bandit:/tmp/testzs$ touch getx.sh
+bandit23@bandit:/tmp/testzs$ touch pass
+bandit23@bandit:/tmp/testzs$ chmod 777 /tmp/testzs
+bandit23@bandit:/tmp/testzs$ chmod 755 getx.sh
+bandit23@bandit:/tmp/testzs$ ls -la
+total 592
+drwxrwxrwx    2 bandit23 bandit23   4096 May  3 04:49 .
+drwxrwx-wt 2292 root     root     593920 May  3 05:05 ..
+-rwxr-xr-x    1 bandit23 root     61 May  3 04:49 getx.sh
+-rwxrwxrwx    1 bandit23 bandit23      0 May  3 04:49 pass
+bandit23@bandit:/tmp/testzs$ cp getx.sh /var/spool/bandit24/getx.sh
+```
+si todo esta correcto viendo el archivo simple encontraremos la contrasena.
+```
+bandit23@bandit:/tmp/testzs$ cat pass
+gb8KRRCsshuZXI0tUuR6ypOFjiZbf3G8
+```
+###  • Nivel 24 → Nivel 25 
+> user: bandit24 
+password: gb8KRRCsshuZXI0tUuR6ypOFjiZbf3G8  
+ssh: bandit24@bandit.labs.overthewire.org -p 2220  
+
+Para este nivel creammos un script con un rango especifico, tambien usaremos *netcat*.
+```
+#!/bin/bash
+pass=gb8KRRCsshuZXI0tUuR6ypOFjiZbf3G8
+for i in {0000..9999}
+do
+echo $pass $i >> zsun25.txt
+done
+```
+una vez configurado el script le damos los permisos de ejecucion y luego verificamos que se crearon los archivos, para luego escuchar el puerto local 30002, en el cual nos dara la contrasena para el siguiente nivel.
+```
+bandit24@bandit:/tmp$ mkdir zsun25
+bandit24@bandit:/tmp$ cd zsun25
+bandit24@bandit:/tmp/zsun25$ touch genp.sh
+bandit24@bandit:/tmp/zsun25$ nano genp.sh
+bandit24@bandit:/tmp/zsun25$ cat zsun25.txt | nc localhost 30002
+I am the pincode checker for user bandit25. Please enter the password for user bandit24 and the secret pincode on a single line, separated by a space.
+Wrong! Please enter the correct current password and pincode. Try again.
+Correct!
+The password of user bandit25 is iCi86ttT4KSNe1armKiwbQNmB3YJP3q4
+```
+###  • Nivel 25 → Nivel 26
+> user: bandit25 
+password: iCi86ttT4KSNe1armKiwbQNmB3YJP3q4  
+ssh: bandit25@bandit.labs.overthewire.org -p 2220
+
+En este nivel se da un *bandit26.sshkey*, para poder ingresar mediante un localhost, pero con el comando *more* debemos hacer la ventana de la terminal del tamano mas reducido posible, una vez con *--More--* en la terminal, presionamos *h* para la ayuda seguido de *v* para entrar al editor, finalmente presionamos *:* para poder escribir *:set shell=/bin/bash* y aun dentro del editor ponemos *:shell*, con lo cual entramos como *bandit26*.
+```
+bandit25@bandit:~$ ls
+bandit26.sshkey
+bandit25@bandit:~$ ssh -i bandit26.sshkey bandit26@localhost -p 2220
+:shell
+bandit26@bandit:~$ cat /etc/bandit_pass/bandit26
+s0773xxkk0MXfdqOfPRVr9L3jJBUOgCZ
+```
+###  • Nivel 26 → Nivel 27  
+> user: bandit26  
+password: s0773xxkk0MXfdqOfPRVr9L3jJBUOgCZ  
+ssh: bandit26@bandit.labs.overthewire.org -p 2220  
+
+Para este nivel necesitamos estar logueados desde el nivel anterior, ya que si intentamos entrar normalmente nos cerrara la sesion, cuando vemos los archivos vemos un ejecutable, para lo cual lo usaremos para entrar al direcotrio donde estan las contrasenas y asi obtenemos la contra para el proximo nivel.
+```
+bandit26@bandit:~$ ls
+bandit27-do  text.txt
+bandit26@bandit:~$ ./bandit27-do
+Run a command as another user.
+  Example: ./bandit27-do id
+bandit26@bandit:~$ ./bandit27-do cat /etc/bandit_pass/bandit27
+upsNCc7vzaRDx6oZC6GiR6ERwe1MowGB
+```
+###  • Nivel 27 → Nivel 28 
+> user: bandit27  
+password: upsNCc7vzaRDx6oZC6GiR6ERwe1MowGB  
+ssh: bandit27@bandit.labs.overthewire.org -p 2220  
+
+Para este nivel debemos copiar el repositorio que se especifica en la pagina, pero debemos especificar el puerto que usaremos, para eso anadiremos depues del localhost *:2220* especificando el puerto a usar.
+```
+bandit27@bandit:/tmp/zgit$ git clone ssh://bandit27-git@localhost:2220/home/bandit27-git/repo
+Cloning into 'repo'...
+bandit27@bandit:/tmp/zgit$ ls
+repo
+bandit27@bandit:/tmp/zgit$ cd repo
+bandit27@bandit:/tmp/zgit/repo$ ls
+README
+bandit27@bandit:/tmp/zgit/repo$ cat README
+The password to the next level is: Yz9IpL0sBcCeuG7m9uQFt8ZNpS4HZRcN
+```
+###  • Nivel 28 → Nivel 29
+> user: bandit28  
+password: Yz9IpL0sBcCeuG7m9uQFt8ZNpS4HZRcN  
+ssh: bandit28@bandit.labs.overthewire.org -p 2220  
+
+Para este nivel igualmente copiaremos el repositorio de la pagina, al momento de tener el repositorio en el archivo markdown vemos que hay un usuario pero no la contrasena, para ver si hubo algun cambio veremos el *git log* y vemos que hay un *fix info leak*, por lo cual vamos por buen camino, copiaremos el codigo del commit para ver el contenido de ese commit, al ver el contenido vemos que ahi esta la contrasena.
+```
+bandit28@bandit:~$ mkdir /tmp/zgit28
+bandit28@bandit:~$ cd /tmp/zgit28
+bandit28@bandit:/tmp/zgit28$  git clone ssh://bandit28-git@localhost:2220/home/bandit28-git/repo
+Cloning into 'repo'...
+bandit28@bandit:/tmp/zgit28$ ls
+repo
+bandit28@bandit:/tmp/zgit28$ cd repo
+bandit28@bandit:/tmp/zgit28/repo$ ls
+README.md
+bandit28@bandit:/tmp/zgit28/repo$ git log
+commit 674690a00a0056ab96048f7317b9ec20c057c06b (HEAD -> master, origin/master, origin/HEAD)
+Author: Morla Porla <morla@overthewire.org>
+Date:   Thu Apr 10 14:23:19 2025 +0000
+
+    fix info leak
+
+commit fb0df1358b1ff146f581651a84bae622353a71c0
+Author: Morla Porla <morla@overthewire.org>
+Date:   Thu Apr 10 14:23:19 2025 +0000
+
+    add missing data
+
+commit a5fdc97aae2c6f0e6c1e722877a100f24bcaaa46
+Author: Ben Dover <noone@overthewire.org>
+Date:   Thu Apr 10 14:23:19 2025 +0000
+
+    initial commit of README.md
+
+bandit28@bandit:/tmp/zgit28/repo$ git show 674690a00a0056ab96048f7317b9ec20c057c06b
+commit 674690a00a0056ab96048f7317b9ec20c057c06b (HEAD -> master, origin/master, origin/HEAD)
+Author: Morla Porla <morla@overthewire.org>
+Date:   Thu Apr 10 14:23:19 2025 +0000
+
+    fix info leak
+
+diff --git a/README.md b/README.md
+index d4e3b74..5c6457b 100644
+--- a/README.md
++++ b/README.md
+@@ -4,5 +4,5 @@ Some notes for level29 of bandit.
+ ## credentials
+
+ - username: bandit29
+-- password: 4pT1t5DENaYuqnqvadYs1oE4QLCdjmJ7
++- password: xxxxxxxxxx
 ```
 
+
+###  • Nivel 29 → Nivel 30
+> user: bandit29  
+password: 4pT1t5DENaYuqnqvadYs1oE4QLCdjmJ7  
+ssh: bandit29@bandit.labs.overthewire.org -p 2220  
+
+Para este nivel debemos cambiar de rama en la que estamos en el repositorio, si pasamos a *dev* y vemos el archivo markdown encontramos la contrasena para el siguiente nivel.
 ```
+bandit29@bandit:~$ mkdir /tmp/zgit29
+bandit29@bandit:~$ cd /tmp/zgit29
+bandit29@bandit:/tmp/zgit29$ ls
+bandit29@bandit:/tmp/zgit29$ git clone ssh://bandit29-git@localhost:2220/home/bandit29-git/repo
+Cloning into 'repo'...
+bandit29@bandit:/tmp/zgit29$ cd repo
+bandit29@bandit:/tmp/zgit29/repo$ cat README.md
+# Bandit Notes
+Some notes for bandit30 of bandit.
 
+## credentials
 
+- username: bandit30
+- password: <no passwords in production!>
 
-###  • Nivel  → Nivel  
-###  • Nivel  → Nivel  
+bandit29@bandit:/tmp/zgit29/repo$ git branch
+* master
+bandit29@bandit:/tmp/zgit29/repo$ git branch -a
+* master
+  remotes/origin/HEAD -> origin/master
+  remotes/origin/dev
+  remotes/origin/master
+  remotes/origin/sploits-dev
+bandit29@bandit:/tmp/zgit29/repo$ git checkout origin/dev
+Note: switching to 'origin/dev'.
+bandit29@bandit:/tmp/zgit29/repo$ ls -la
+total 20
+drwxrwxr-x 4 bandit29 bandit29 4096 May  3 07:16 .
+drwxrwxr-x 3 bandit29 bandit29 4096 May  3 07:14 ..
+drwxrwxr-x 2 bandit29 bandit29 4096 May  3 07:16 code
+drwxrwxr-x 8 bandit29 bandit29 4096 May  3 07:16 .git
+-rw-rw-r-- 1 bandit29 bandit29  134 May  3 07:16 README.md
+bandit29@bandit:/tmp/zgit29/repo$ cat README.md
+# Bandit Notes
+Some notes for bandit30 of bandit.
 
+## credentials
+
+- username: bandit30
+- password: qp30ex3VLz5MDG1n91YowTv4Q8l7CDZL
+```
+###  • Nivel 30 → Nivel 31
+> user: bandit30  
+password: qp30ex3VLz5MDG1n91YowTv4Q8l7CDZL  
+ssh: bandit30@bandit.labs.overthewire.org -p 2220  
+
+En este nivel de igual manera copiamos el repositorio, pero al ver el archivo markdown, no vemos algo prometedor, pero si vemos la etiqueta veremos un *secret* y lo descubrimos encontraremos la contrasena para el siguiente nivel.
+```
+bandit30@bandit:~$ mkdir /tmp/zgit30
+bandit30@bandit:~$ cd /tmp/zgit30
+bandit30@bandit:/tmp/zgit30$ git clone ssh://bandit30-git@localhost:2220/home/bandit30-git/repo
+Cloning into 'repo'...
+bandit30@bandit:/tmp/zgit30$ cd repo
+bandit30@bandit:/tmp/zgit30/repo$ ls
+README.md
+bandit30@bandit:/tmp/zgit30/repo$ cat README.md
+just an epmty file... muahaha
+bandit30@bandit:/tmp/zgit30/repo$ git tag
+secret
+bandit30@bandit:/tmp/zgit30/repo$ git show secret
+fb5S2xb7bRyFmAvQYQGEqsbhVyJqhnDy
+```
+###  • Nivel 31 → Nivel 32
+> user: bandit31  
+password: fb5S2xb7bRyFmAvQYQGEqsbhVyJqhnDy  
+ssh: bandit31@bandit.labs.overthewire.org -p 2220  
+
+Para este nivel tambien copiamos el repositorio, ale ver el markdown nos indica que debemos subir un archivo al repositorio, para eso creamos el archivo, una vez creado si lo intentamos subir el *.gitignore* no los permitira, para eso usaremos *git add* y lo subimos a la rama *origin master*.
+```
+bandit31@bandit:~$ mkdir /tmp/zgitt
+bandit31@bandit:~$ cd /tmp/zgitt
+bandit31@bandit:/tmp/zgitt$ git clone ssh://bandit31-git@localhost:2220/home/bandit31-git/repo
+Cloning into 'repo'...
+bandit31@bandit:/tmp/zgitt$ cd repo
+bandit31@bandit:/tmp/zgitt/repo$ ls
+README.md
+bandit31@bandit:/tmp/zgitt/repo$ echo 'May I come in?' > key.txt
+bandit31@bandit:/tmp/zgitt/repo$ git add -f key.txt
+bandit31@bandit:/tmp/zgitt/repo$ git commit -m "a"
+[master 8e2e0f4] a
+ 1 file changed, 1 insertion(+)
+ create mode 100644 key.txt
+bandit31@bandit:/tmp/zgitt/repo$ git push -u origin master
+The authenticity of host '[localhost]:2220 ([127.0.0.1]:2220)' can't be established.
+remote: ### Attempting to validate files... ####
+remote:
+remote: .oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
+remote:
+remote: Well done! Here is the password for the next level:
+remote: 3O9RfhqyAlVBEZpVb6LYStshZoqoSx5K
+remote:
+remote: .oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
+remote:
+To ssh://localhost:2220/home/bandit31-git/repo
+```
+###  • Nivel 32 → Nivel 33 
+> user: bandit32  
+password: 3O9RfhqyAlVBEZpVb6LYStshZoqoSx5K  
+ssh: bandit32@bandit.labs.overthewire.org -p 2220  
+
+Para este nivel nos encontramos un shell diferente, si usamos comandos normales, parece estar todo en mayuscula, para salir del shell en mayusculas usaremos '$0' y asi usamos comandos normalmente, si buscamos la carpeta de las contrasenas podremos encontrar la ultima contrasena.
+```
+WELCOME TO THE UPPERCASE SHELL
+>> $0
+$ ls
+uppershell
+$ whoami
+bandit33
+$ cat /etc/bandit_pass/bandit33
+tQdtbs5D5i2vJwkO8mEyYEyTL8izoeJ0
+$
+```
+###  • Nivel 33
+> user: bandit33  
+password: tQdtbs5D5i2vJwkO8mEyYEyTL8izoeJ0  
+ssh: bandit33@bandit.labs.overthewire.org -p 2220  
+
+Se termino el juego.
+```
+bandit33@bandit:~$ ls
+README.txt
+bandit33@bandit:~$ cat README.txt
+Congratulations on solving the last level of this game!
+
+At this moment, there are no more levels to play in this game. However, we are constantly working
+on new levels and will most likely expand this game with more levels soon.
+Keep an eye out for an announcement on our usual communication channels!
+In the meantime, you could play some of our other wargames.
+
+If you have an idea for an awesome new level, please let us know!
+```
 
 *investigando las respuestas...*  
 ![espera](/images/sherlock.gif)
 
+[//]: # ( GG )
 
-
-[//]: # ( > user: bandit  
-password: -  
-ssh: bandit@bandit.labs.overthewire.org -p 2220  
-)
-
-<br>`26.04 | ws`
+<br>`ws 03.05`
