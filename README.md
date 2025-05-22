@@ -9,7 +9,7 @@
 - [Leviathan.](content/leviathan.md) 
 - [Kripton.](content/kripton.md)  
 - [Narnia.](content/narnia.md)  
-- [Behemont.](content/behemont.md)
+- [Behemont.](content/behemoth.md)
 - [Linux-journey.](content/linuxjourney.md)
 - [Hacker-rank.](content/hackerrank.md)  
 
