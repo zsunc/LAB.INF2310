@@ -22,6 +22,7 @@ url: http://natas2.natas.labs.overthewire.org
 
 Para este nivel solo encontramos una imagen el el codigo de la pagina, pero si vamos a los */files/* de la pagina nos encontramos un *.txt* que tiene la contraseña para el siguiente nivel.
 ![natas2](/images/natas/n2.1.png)
+
 ![natas2](/images/natas/n2.2.png)
 
 ###  • Nivel 3 → Nivel 4
@@ -31,7 +32,9 @@ url: http://natas3.natas.labs.overthewire.org
 
 En este nivel veremos los archivos *robots.txt*, estos indican si ciertos agentes de usuario pueden o no rastrear partes de un sitio web. Actualmente, existe en la mayoría de los sitios web.
 ![natas3](/images/natas/n3.1.png)
+
 ![natas3](/images/natas/n3.2.png)
+
 ![natas3](/images/natas/n3.3.png)
 
 ###  • Nivel 4 → Nivel 5
@@ -41,6 +44,7 @@ url: http://natas4.natas.labs.overthewire.org
 
 Para este nivel debemos entrar como un referrer entrando desde *natas5*, para eso realizamos un script en phyton, ya que si lo hacemos desde el navegador necesitariamos algunas extensiones extras.
 ![natass4](/images/natas/n4.1.png)
+
 este seria el script para poder entrar.
 ```
 import requests
@@ -92,7 +96,9 @@ include "includes/secret.inc";
 ```
 Lo que llama la atencion es el directorio *includes/secret.inc*, si accedemos a el y vemos el codigo fuente encontraremos el secreto y si lo introducimos, obtendremos la contraseña para el siguiente nivel.
 ![natas6](/images/natas/n6.1.png)
+
 ![natas6](/images/natas/n6.2.png)
+
 ![natas6](/images/natas/n6.3.png)
 
 ###  • Nivel 7 → Nivel 8
@@ -103,11 +109,15 @@ url: http://natas7.natas.labs.overthewire.org
 Para este nivel la pagina no valida la entrada page, y por lo tanto es vulnerable a ataques de cruce de ruta.
 Recordamos que la introducción de Natas Wargame dice: All passwords are also stored in */etc/natas_webpass/natas#*, por lo tanto, podemos intentar establecer el parámetro page como /etc/natas_webpass/natas8 y encontrar la contraseña.
 Para eso en la pagehome, iremos añadiendo *../* hasta encontrar el directorio donde se encuentra la contraseña.
+
 ![natas7](/images/natas/n7.1.png)
+
 ```
 http://natas7.natas.labs.overthewire.org/index.php?page=home../../../../../../../../../../etc/natas_webpass/natas8
 ```
+
 con eso encontrariamos la contraseña.
+
 ![natas7](/images/natas/n7.2.png)
 
 ###  • Nivel 8 → Nivel 9
@@ -247,4 +257,4 @@ password: -
 url: http://natas.natas.labs.overthewire.org  
 
 
-<br>`lx 03.05`
+<br>`lx 22.05`
