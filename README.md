@@ -9,7 +9,7 @@
 - [Leviathan.](content/leviathan.md) 
 - [Kripton.](content/kripton.md)  
 - [Narnia.](content/narnia.md)  
-- [Behemont.](content/behemoth.md)
+- [Behemoth.](content/behemoth.md)
 - [Linux-journey.](content/linuxjourney.md)
 - [Hacker-rank.](content/hackerrank.md)  
 
@@ -21,4 +21,4 @@
 ![gatochambeando](/images/cat.gif)
 
 
-<br>`lx 03.05`
+<br>`lx 22.05`
