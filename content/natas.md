@@ -125,31 +125,88 @@ con eso encontrariamos la contraseña.
 password: xcoXLmzMkoIP9D7hlgPlh9XD7OgLAe5Q   
 url: http://natas8.natas.labs.overthewire.org  
 
+En este nivel veremos el siguiente codigo PHP.
+vemos una funcion que compara el codigo con el codigo secreto porlo cual debemos hacer una serie de conversiones.
+Primero convertir de hexadecimal a ascii.
+luego invertir el texto, finalmente decodificarlo del base64.
+```
+<?
 
+$encodedSecret = "3d3d516343746d4d6d6c315669563362";
 
+function encodeSecret($secret) {
+    return bin2hex(strrev(base64_encode($secret)));
+}
 
+if(array_key_exists("submit", $_POST)) {
+    if(encodeSecret($_POST['secret']) == $encodedSecret) {
+    print "Access granted. The password for natas9 is <censored>";
+    } else {
+    print "Wrong secret";
+    }
+}
+?>
+```
+![natas8](/images/natas/n8.1.png)
 
+Este seria el texto a invertir, si lo invertimos tenemos:
+`b3ViV1lmMmtCcQ==`
+Como este texto esta en base64 procedemos a decodificarlo.
 
+![natas8](/images/natas/n8.2.png)
+
+Ahora ponemos el codigo descifrado en la pagina y obtenemos la contraseña para el siguiente nivel.
+
+![natas8](/images/natas/n8.3.png)
 
 ###  • Nivel 9 → Nivel 10
-> user: natas  
-password: -  
+> user: natas9  
+password: ZE1ck82lmdGIoErlhQgWND6j2Wzz6b6t  
 url: http://natas.natas.labs.overthewire.org  
+
+Para este nivel vemos el siguiente codigo:
+```
+<?
+$key = "";
+
+if(array_key_exists("needle", $_REQUEST)) {
+    $key = $_REQUEST["needle"];
+}
+
+if($key != "") {
+    passthru("grep -i $key dictionary.txt");
+}
+?>
+```
+Al ver el codigo y viendo la pagina vemos que podemos ingresar algun tipo de comando, si intentamos entrar a la carpeta de contraseñas obtendremos la contraseña para el siguiente nivel
+Pero debemos poner un `; ` en el campo de busqueda para poder separar el comando de un shell.
+
+![natas](/images/natas/n9.1.png)
 
 ###  • Nivel 10 → Nivel 11
-> user: natas  
-password: -  
+> user: natas10  
+password: t7I5VHvpa14sJTUGV0cbEsbYfFP2dmOu  
 url: http://natas.natas.labs.overthewire.org  
+
+Este nivel es similar al anterio solo que tiene algunas restricciones en los caracteres, pero podemos leer todoslos archivosde un directorio con `.*`, de igual manera buscamos en el directorio donde se encuentran las contraseñas.
+
+![natas10](/images/natas/n10.png)
 
 ###  • Nivel 11 → Nivel 12
-> user: natas  
-password: -  
+> user: natas11  
+password: UJdqkK1pTu6VLt9UHWAgRZz6sVUZ3lEk  
 url: http://natas.natas.labs.overthewire.org  
 
+En el codigo veremos que podemos cambiar el campo de `showpassword` a yes y obtendremos el valor de la contraseña pero no la calver para la funcion `xor_encrypt()`, vemos que este nivel se usa el algoritmo XOR, por lo cual conocemos los valores del texto, para eso haremos un script para cambiar los valores, una vez con el valor tendremos que cambiar el valor de la cookie en el navegador y nos daria la contraseña para el siguiente nivel.
+
+![natas11](/images/natas/n11.png)
+
 ###  • Nivel 12 → Nivel 13
-> user: natas  
-password: -  
+> user: natas12  
+password: yZdkjAYZRd3R7tq7T5kXMjMJlOIkzDeB  
 url: http://natas.natas.labs.overthewire.org  
+
+
 
 ###  • Nivel 13 → Nivel 14
 > user: natas  
