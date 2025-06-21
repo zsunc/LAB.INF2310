@@ -4,7 +4,7 @@
 
 ### Contenido: 
 
-- [Bandit.](content/bandit.md)  
+- [Bandit.](content/bandit.md) 
 - [Natas.](content/natas.md)  
 - [Leviathan.](content/leviathan.md) 
 - [Kripton.](content/kripton.md)  
